@@ -1,9 +1,9 @@
 ## TODO
 
-*[ ] Json datei erstellen knopf machen und programmieren
+- [ ] Json datei erstellen knopf machen und programmieren
 
-*[ ] Attribute verändern und abspeichern
+- [ ] Attribute verändern und abspeichern
 
-*[ ] UI Elemente ordentlich Designen
+- [ ] UI Elemente ordentlich Designen
 
-*[ ] Verhindern das 2 Dateien gleichzeitig eingelesen werden können
+- [ ] Verhindern das 2 Dateien gleichzeitig eingelesen werden können
