@@ -8,6 +8,10 @@
 #include "flightbooking.h"
 #include <QMessageBox>
 #include <QDebug>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QFile>
 using namespace std;
 
 TravelAgency::TravelAgency()
@@ -400,11 +404,47 @@ bool TravelAgency::readBinaryFile()
     return true;
 }
 
-bool TravelAgency::createJSON(std::string fileName)
+bool TravelAgency::createJSON(QString fileName)
 {
+    QJsonDocument jsonDocument;
+    QJsonArray bookings;
+    for (unsigned int i = 0; i < booking.size(); i++){
+        QJsonObject jsonObjectBuchung;
+        if(typeid(FlightBooking) == typeid(*(booking[i]))){
+            jsonObjectBuchung["type"] = "F";
+            jsonObjectBuchung["fromDestination"] = QString::fromStdString(dynamic_cast<FlightBooking*>(booking[i])->getFromDestination());
+            jsonObjectBuchung["toDestination"] = QString::fromStdString(dynamic_cast<FlightBooking*>(booking[i])->getToDestination());
+            jsonObjectBuchung["airline"] = QString::fromStdString(dynamic_cast<FlightBooking*>(booking[i])->getAirline());
+        }
+        if(typeid(RentalCarReservation) == typeid(*(booking[i]))){
+            jsonObjectBuchung["type"] = "R";
+            jsonObjectBuchung["pickupLocation"] = QString::fromStdString(dynamic_cast<RentalCarReservation*>(booking[i])->getPickupLocation());
+            jsonObjectBuchung["returnLocation"] = QString::fromStdString(dynamic_cast<RentalCarReservation*>(booking[i])->getReturnLocation());
+            jsonObjectBuchung["company"] = QString::fromStdString(dynamic_cast<RentalCarReservation*>(booking[i])->getCompany());
+        }
+        if(typeid(HotelBooking) == typeid(*(booking[i]))){
+            jsonObjectBuchung["type"] = "H";
+            jsonObjectBuchung["hotel"] = QString::fromStdString(dynamic_cast<HotelBooking*>(booking[i])->getHotel());
+            jsonObjectBuchung["town"] = QString::fromStdString(dynamic_cast<HotelBooking*>(booking[i])->getTown());
+        }
+        jsonObjectBuchung["id"] = booking[i]->getId();
+        jsonObjectBuchung["fromDate"] = QString::fromStdString(booking[i]->getFromDate());
+        jsonObjectBuchung["toDate"] = QString::fromStdString(booking[i]->getToDate());
+        jsonObjectBuchung["price"] = booking[i]->getPrice();
+        bookings.push_back(jsonObjectBuchung);
+    }
+    jsonDocument.setArray(bookings);
 
+    QString dateiName = fileName;
+    QFile datei(fileName);
+    if (!datei.open(QIODevice::WriteOnly)){
+        qDebug() << "Datei konnte nicht geoeffnet werden";
+        return false;
+    }
+    datei.write(jsonDocument.toJson());
+    datei.close();
+    return true;
 }
-
 int TravelAgency::suche(int zuSuchendeId)
 {
 for(unsigned int i = 0; i < booking.size(); i++){

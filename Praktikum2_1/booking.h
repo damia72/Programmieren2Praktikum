@@ -17,6 +17,11 @@ public:
     void settoQDate(QDate toDateInput);
     void setPrice(double newPrice);
 
+    const std::string &getFromDate() const;
+    void setFromDate(const std::string &newFromDate);
+
+    const std::string &getToDate() const;
+
 protected:
 
     int id;

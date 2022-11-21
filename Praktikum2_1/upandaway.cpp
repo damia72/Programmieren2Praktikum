@@ -136,5 +136,6 @@ void UpAndAway::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
 void UpAndAway::on_JSONErstellenButton_clicked()
 {
     QString path = QFileDialog::getSaveFileName(this, "Bitte pfad auswählen", "", "*.json");
+    travelagency.createJSON(path);
 }
 

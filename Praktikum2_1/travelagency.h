@@ -10,7 +10,7 @@ public:
     ~TravelAgency();
     bool readfile(std::string fileName, QWidget* window);
     bool readBinaryFile();
-    bool createJSON(std::string fileName);
+    bool createJSON(QString fileName);
     std::vector<Booking*> booking;
     int suche(int zuSuchendeId);
 private:

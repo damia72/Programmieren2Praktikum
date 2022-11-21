@@ -47,6 +47,21 @@ void Booking::setPrice(double newPrice)
     price = newPrice;
 }
 
+const std::string &Booking::getFromDate() const
+{
+    return fromDate;
+}
+
+void Booking::setFromDate(const std::string &newFromDate)
+{
+    fromDate = newFromDate;
+}
+
+const std::string &Booking::getToDate() const
+{
+    return toDate;
+}
+
 Booking::Booking(int idInput, double priceInput, std::string fromDateInput,
                  std::string toDateInput)
     :id(idInput), price(priceInput), fromDate(fromDateInput), toDate(toDateInput)
