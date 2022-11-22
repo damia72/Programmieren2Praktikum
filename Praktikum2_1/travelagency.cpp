@@ -275,7 +275,7 @@ bool TravelAgency::readfile(string fileName, QWidget *window)
         aktuelleZeile++;
 
     }
-    QMessageBox::about(window, "Dateie erfolgreich eingelesen", "Es wurden " + QString::number(flightImportCount) +
+    QMessageBox::about(window, "Datei erfolgreich eingelesen", "Es wurden " + QString::number(flightImportCount) +
                        " Fugbuchungen im Wert von " + QString::number(totalFlightCost, 'f', 2) + " €, " +
                        QString::number(rentalCarImportCount) + " Mietwagenbuchungen im Wert von " + QString::number(totalRentalCarCost, 'f', 2)
                        + " € und " + QString::number(hotelImportCount) +
