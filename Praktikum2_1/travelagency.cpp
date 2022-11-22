@@ -434,8 +434,6 @@ bool TravelAgency::createJSON(QString fileName)
         bookings.push_back(jsonObjectBuchung);
     }
     jsonDocument.setArray(bookings);
-
-    QString dateiName = fileName;
     QFile datei(fileName);
     if (!datei.open(QIODevice::WriteOnly)){
         qDebug() << "Datei konnte nicht geoeffnet werden";

@@ -63,7 +63,7 @@ const std::string &FlightBooking::getFromDestination() const
 
 void FlightBooking::setFromDestination(const std::string &newFromDestination)
 {
-    fromDestination = newFromDestination;
+    fromDestination = newFromDestination.substr(0,3);
 }
 
 const std::string &FlightBooking::getToDestination() const
@@ -73,7 +73,7 @@ const std::string &FlightBooking::getToDestination() const
 
 void FlightBooking::setToDestination(const std::string &newToDestination)
 {
-    toDestination = newToDestination;
+    toDestination = newToDestination.substr(0,3);
 }
 
 const std::string &FlightBooking::getAirline() const

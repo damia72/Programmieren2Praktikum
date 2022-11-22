@@ -2,11 +2,11 @@
 
 - [X] Json datei erstellen knopf machen und programmieren
 
-- [ ] Attribute verändern und abspeichern
+- [X] Attribute verändern und abspeichern
 
 - [ ] Price richtig formatieren bei der Liste
 
-- [ ] Attribute anzeigen bei ID Suche
+- [X] Attribute anzeigen bei ID Suche
 
 - [ ] UI Elemente ordentlich Designen
 
