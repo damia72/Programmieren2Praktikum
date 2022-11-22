@@ -124,29 +124,42 @@ void UpAndAway::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
         ui->toDestinationLineEdit->setEnabled(true);
         ui->companyLineEdit->setEnabled(true);
         ui->pickupStationLineEdit->setEnabled(false);
+        ui->pickupStationLineEdit->setText("");
         ui->returnStationLineEdit->setEnabled(false);
+        ui->returnStationLineEdit->setText("");
         ui->hotelLineEdit->setEnabled(false);
+        ui->hotelLineEdit->setText("");
         ui->townLineEdit->setEnabled(false);
+        ui->townLineEdit->setText("");
         ui->fromDestinationLineEdit->setText(QString::fromStdString(dynamic_cast<FlightBooking*>(travelagency.booking[stelleImVektor])->getFromDestination()));
         ui->toDestinationLineEdit->setText(QString::fromStdString(dynamic_cast<FlightBooking*>(travelagency.booking[stelleImVektor])->getToDestination()));
         ui->companyLineEdit->setText(QString::fromStdString(dynamic_cast<FlightBooking*>(travelagency.booking[stelleImVektor])->getAirline()));
     }else if(info.split(' ')[0]== "Mietwagenreservierung"){
         ui->fromDestinationLineEdit->setEnabled(false);
+        ui->fromDestinationLineEdit->setText("");
         ui->toDestinationLineEdit->setEnabled(false);
+        ui->toDestinationLineEdit->setText("");
         ui->companyLineEdit->setEnabled(true);
         ui->pickupStationLineEdit->setEnabled(true);
         ui->returnStationLineEdit->setEnabled(true);
         ui->hotelLineEdit->setEnabled(false);
+        ui->hotelLineEdit->setText("");
         ui->townLineEdit->setEnabled(false);
+        ui->townLineEdit->setText("");
         ui->pickupStationLineEdit->setText(QString::fromStdString(dynamic_cast<RentalCarReservation*>(travelagency.booking[stelleImVektor])->getPickupLocation()));
         ui->returnStationLineEdit->setText(QString::fromStdString(dynamic_cast<RentalCarReservation*>(travelagency.booking[stelleImVektor])->getReturnLocation()));
         ui->companyLineEdit->setText(QString::fromStdString(dynamic_cast<RentalCarReservation*>(travelagency.booking[stelleImVektor])->getCompany()));
     }else if(info.split(' ')[0] == "Hotelreservierung"){
         ui->fromDestinationLineEdit->setEnabled(false);
+        ui->fromDestinationLineEdit->setText("");
         ui->toDestinationLineEdit->setEnabled(false);
+        ui->toDestinationLineEdit->setText("");
         ui->companyLineEdit->setEnabled(false);
+        ui->companyLineEdit->setText("");
         ui->pickupStationLineEdit->setEnabled(false);
+        ui->pickupStationLineEdit->setText("");
         ui->returnStationLineEdit->setEnabled(false);
+        ui->returnStationLineEdit->setText("");
         ui->hotelLineEdit->setEnabled(true);
         ui->townLineEdit->setEnabled(true);
         ui->hotelLineEdit->setText(QString::fromStdString(dynamic_cast<HotelBooking*>(travelagency.booking[stelleImVektor])->getHotel()));
@@ -212,6 +225,48 @@ void UpAndAway::on_priceSpinBox_valueChanged(double arg1)
 
 void UpAndAway::on_fromDestinationLineEdit_textChanged(const QString &arg1)
 {
+
+}
+
+
+void UpAndAway::on_toDestinationLineEdit_textChanged(const QString &arg1)
+{
+
+}
+
+
+void UpAndAway::on_companyLineEdit_textChanged(const QString &arg1)
+{
+
+}
+
+
+void UpAndAway::on_pickupStationLineEdit_textChanged(const QString &arg1)
+{
+
+}
+
+
+void UpAndAway::on_returnStationLineEdit_textChanged(const QString &arg1)
+{
+
+}
+
+
+void UpAndAway::on_hotelLineEdit_textChanged(const QString &arg1)
+{
+
+}
+
+
+void UpAndAway::on_townLineEdit_textChanged(const QString &arg1)
+{
+
+}
+
+
+void UpAndAway::on_fromDestinationLineEdit_textEdited(const QString &arg1)
+{
     dynamic_cast<FlightBooking*>(travelagency.booking[selectedBookingVectorLocation])->setFromDestination(arg1.toStdString());
     //Widgetliste aktualisieren
 
@@ -224,7 +279,7 @@ void UpAndAway::on_fromDestinationLineEdit_textChanged(const QString &arg1)
 }
 
 
-void UpAndAway::on_toDestinationLineEdit_textChanged(const QString &arg1)
+void UpAndAway::on_toDestinationLineEdit_textEdited(const QString &arg1)
 {
     dynamic_cast<FlightBooking*>(travelagency.booking[selectedBookingVectorLocation])->setToDestination(arg1.toStdString());
     //Widgetliste aktualisieren
@@ -238,7 +293,7 @@ void UpAndAway::on_toDestinationLineEdit_textChanged(const QString &arg1)
 }
 
 
-void UpAndAway::on_companyLineEdit_textChanged(const QString &arg1)
+void UpAndAway::on_companyLineEdit_textEdited(const QString &arg1)
 {
     if(typeid(FlightBooking) == typeid(*(travelagency.booking[selectedBookingVectorLocation]))){
         dynamic_cast<FlightBooking*>(travelagency.booking[selectedBookingVectorLocation])->setAirline(arg1.toStdString());
@@ -256,35 +311,7 @@ void UpAndAway::on_companyLineEdit_textChanged(const QString &arg1)
 }
 
 
-void UpAndAway::on_pickupStationLineEdit_textChanged(const QString &arg1)
-{
-    dynamic_cast<RentalCarReservation*>(travelagency.booking[selectedBookingVectorLocation])->setPickupLocation(arg1.toStdString());
-    //Widgetliste aktualisieren
-
-    ////position in Widgetliste == position im Vektor
-    ui->listWidget->item(selectedBookingVectorLocation)->setText(QString::fromStdString(travelagency.booking[selectedBookingVectorLocation]->showDetails()));
-
-    //Attributliste aktualisieren
-
-    on_idInputSpinBox_valueChanged(selectedId);
-}
-
-
-void UpAndAway::on_returnStationLineEdit_textChanged(const QString &arg1)
-{
-    dynamic_cast<RentalCarReservation*>(travelagency.booking[selectedBookingVectorLocation])->setReturnLocation(arg1.toStdString());
-    //Widgetliste aktualisieren
-
-    ////position in Widgetliste == position im Vektor
-    ui->listWidget->item(selectedBookingVectorLocation)->setText(QString::fromStdString(travelagency.booking[selectedBookingVectorLocation]->showDetails()));
-
-    //Attributliste aktualisieren
-
-    on_idInputSpinBox_valueChanged(selectedId);
-}
-
-
-void UpAndAway::on_hotelLineEdit_textChanged(const QString &arg1)
+void UpAndAway::on_hotelLineEdit_textEdited(const QString &arg1)
 {
     dynamic_cast<HotelBooking*>(travelagency.booking[selectedBookingVectorLocation])->setHotel(arg1.toStdString());
     //Widgetliste aktualisieren
@@ -298,9 +325,37 @@ void UpAndAway::on_hotelLineEdit_textChanged(const QString &arg1)
 }
 
 
-void UpAndAway::on_townLineEdit_textChanged(const QString &arg1)
+void UpAndAway::on_townLineEdit_textEdited(const QString &arg1)
 {
     dynamic_cast<HotelBooking*>(travelagency.booking[selectedBookingVectorLocation])->setTown(arg1.toStdString());
+    //Widgetliste aktualisieren
+
+    ////position in Widgetliste == position im Vektor
+    ui->listWidget->item(selectedBookingVectorLocation)->setText(QString::fromStdString(travelagency.booking[selectedBookingVectorLocation]->showDetails()));
+
+    //Attributliste aktualisieren
+
+    on_idInputSpinBox_valueChanged(selectedId);
+}
+
+
+void UpAndAway::on_pickupStationLineEdit_textEdited(const QString &arg1)
+{
+    dynamic_cast<RentalCarReservation*>(travelagency.booking[selectedBookingVectorLocation])->setPickupLocation(arg1.toStdString());
+    //Widgetliste aktualisieren
+
+    ////position in Widgetliste == position im Vektor
+    ui->listWidget->item(selectedBookingVectorLocation)->setText(QString::fromStdString(travelagency.booking[selectedBookingVectorLocation]->showDetails()));
+
+    //Attributliste aktualisieren
+
+    on_idInputSpinBox_valueChanged(selectedId);
+}
+
+
+void UpAndAway::on_returnStationLineEdit_textEdited(const QString &arg1)
+{
+    dynamic_cast<RentalCarReservation*>(travelagency.booking[selectedBookingVectorLocation])->setReturnLocation(arg1.toStdString());
     //Widgetliste aktualisieren
 
     ////position in Widgetliste == position im Vektor

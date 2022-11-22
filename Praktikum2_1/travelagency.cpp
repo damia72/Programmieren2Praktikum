@@ -19,7 +19,6 @@ TravelAgency::TravelAgency()
 
 }
 
-
 TravelAgency::~TravelAgency()
 {
     cleanBookings();
@@ -443,6 +442,7 @@ bool TravelAgency::createJSON(QString fileName)
     datei.close();
     return true;
 }
+
 int TravelAgency::suche(int zuSuchendeId)
 {
 for(unsigned int i = 0; i < booking.size(); i++){
@@ -452,8 +452,6 @@ for(unsigned int i = 0; i < booking.size(); i++){
 }
 return -1;
 }
-
-
 
 void TravelAgency::cleanBookings()
 {

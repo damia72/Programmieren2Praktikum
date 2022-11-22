@@ -50,6 +50,20 @@ private slots:
 
     void on_townLineEdit_textChanged(const QString &arg1);
 
+    void on_fromDestinationLineEdit_textEdited(const QString &arg1);
+
+    void on_toDestinationLineEdit_textEdited(const QString &arg1);
+
+    void on_companyLineEdit_textEdited(const QString &arg1);
+
+    void on_hotelLineEdit_textEdited(const QString &arg1);
+
+    void on_townLineEdit_textEdited(const QString &arg1);
+
+    void on_pickupStationLineEdit_textEdited(const QString &arg1);
+
+    void on_returnStationLineEdit_textEdited(const QString &arg1);
+
 private:
     Ui::UpAndAway *ui;
     int selectedBookingVectorLocation;
