@@ -4,7 +4,7 @@
 
 - [X] Attribute verändern und abspeichern
 
-- [ ] Price richtig formatieren bei der Liste
+- [X] Price richtig formatieren bei der Liste
 
 - [X] Attribute anzeigen bei ID Suche
 
