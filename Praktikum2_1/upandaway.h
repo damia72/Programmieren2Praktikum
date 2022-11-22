@@ -36,20 +36,6 @@ private slots:
 
     void on_priceSpinBox_valueChanged(double arg1);
 
-    void on_fromDestinationLineEdit_textChanged(const QString &arg1);
-
-    void on_toDestinationLineEdit_textChanged(const QString &arg1);
-
-    void on_companyLineEdit_textChanged(const QString &arg1);
-
-    void on_pickupStationLineEdit_textChanged(const QString &arg1);
-
-    void on_returnStationLineEdit_textChanged(const QString &arg1);
-
-    void on_hotelLineEdit_textChanged(const QString &arg1);
-
-    void on_townLineEdit_textChanged(const QString &arg1);
-
     void on_fromDestinationLineEdit_textEdited(const QString &arg1);
 
     void on_toDestinationLineEdit_textEdited(const QString &arg1);
@@ -66,6 +52,7 @@ private slots:
 
 private:
     Ui::UpAndAway *ui;
+    void cleanEverything();
     int selectedBookingVectorLocation;
     int selectedId;
     TravelAgency travelagency;

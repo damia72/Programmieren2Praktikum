@@ -13,9 +13,10 @@ public:
     bool createJSON(QString fileName);
     std::vector<Booking*> booking;
     int suche(int zuSuchendeId);
+    void cleanBookings();
 private:
 
-    void cleanBookings();
+
     bool sindDasZahlen(std::string testString);
     std::string datumFormatieren(std::string datum);
 };

@@ -13,17 +13,7 @@ UpAndAway::UpAndAway(QWidget *parent)
     , ui(new Ui::UpAndAway)
 {
     ui->setupUi(this);
-    ui->spinBox->setEnabled(false);
-    ui->fromDestinationLineEdit->setEnabled(false);
-    ui->toDestinationLineEdit->setEnabled(false);
-    ui->hotelLineEdit->setEnabled(false);
-    ui->companyLineEdit->setEnabled(false);
-    ui->townLineEdit->setEnabled(false);
-    ui->pickupStationLineEdit->setEnabled(false);
-    ui->returnStationLineEdit->setEnabled(false);
-    ui->fromDateEdit->setEnabled(false);
-    ui->toDateEdit->setEnabled(false);
-    ui->priceSpinBox->setEnabled(false);
+    cleanEverything();
 }
 
 UpAndAway::~UpAndAway()
@@ -34,6 +24,8 @@ UpAndAway::~UpAndAway()
 
 void UpAndAway::on_readFileButton_clicked()
 {
+    cleanEverything();
+    //hey wir wollen die eisbärn sehn whohoooo
     QString fileName = QFileDialog::getOpenFileName(this, "Bitte Datei auswählen", "");
     try{
         travelagency.readfile(fileName.toStdString(),this);
@@ -222,49 +214,6 @@ void UpAndAway::on_priceSpinBox_valueChanged(double arg1)
     on_idInputSpinBox_valueChanged(selectedId);
 }
 
-
-void UpAndAway::on_fromDestinationLineEdit_textChanged(const QString &arg1)
-{
-
-}
-
-
-void UpAndAway::on_toDestinationLineEdit_textChanged(const QString &arg1)
-{
-
-}
-
-
-void UpAndAway::on_companyLineEdit_textChanged(const QString &arg1)
-{
-
-}
-
-
-void UpAndAway::on_pickupStationLineEdit_textChanged(const QString &arg1)
-{
-
-}
-
-
-void UpAndAway::on_returnStationLineEdit_textChanged(const QString &arg1)
-{
-
-}
-
-
-void UpAndAway::on_hotelLineEdit_textChanged(const QString &arg1)
-{
-
-}
-
-
-void UpAndAway::on_townLineEdit_textChanged(const QString &arg1)
-{
-
-}
-
-
 void UpAndAway::on_fromDestinationLineEdit_textEdited(const QString &arg1)
 {
     dynamic_cast<FlightBooking*>(travelagency.booking[selectedBookingVectorLocation])->setFromDestination(arg1.toStdString());
@@ -364,5 +313,23 @@ void UpAndAway::on_returnStationLineEdit_textEdited(const QString &arg1)
     //Attributliste aktualisieren
 
     on_idInputSpinBox_valueChanged(selectedId);
+}
+
+void UpAndAway::cleanEverything()
+{
+    travelagency.cleanBookings();
+    ui->listWidget->clear();
+    ui->textBrowser->clear();
+    ui->spinBox->setEnabled(false);
+    ui->fromDestinationLineEdit->setEnabled(false);
+    ui->toDestinationLineEdit->setEnabled(false);
+    ui->hotelLineEdit->setEnabled(false);
+    ui->companyLineEdit->setEnabled(false);
+    ui->townLineEdit->setEnabled(false);
+    ui->pickupStationLineEdit->setEnabled(false);
+    ui->returnStationLineEdit->setEnabled(false);
+    ui->fromDateEdit->setEnabled(false);
+    ui->toDateEdit->setEnabled(false);
+    ui->priceSpinBox->setEnabled(false);
 }
 

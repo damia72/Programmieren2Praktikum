@@ -8,9 +8,21 @@
 
 - [X] Attribute anzeigen bei ID Suche
 
+- [X] Verhindern das 2 Dateien gleichzeitig eingelesen werden können
+
+# TODO P3
+
 - [ ] UI Elemente ordentlich Designen
 
-- [ ] Verhindern das 2 Dateien gleichzeitig eingelesen werden können
+- [ ] Klassendiagramm nachbauen
+
+- [ ] UI von der Logik trennen
+
+- [ ] Datei einlesen im neuen format
+
+- [ ] UI an die Daten anpassen
+
+- [X] Lösung auf gitlab hochladen
 
 # Aufräumarbeiten
 
