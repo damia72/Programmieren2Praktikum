@@ -139,3 +139,11 @@ void UpAndAway::on_JSONErstellenButton_clicked()
     travelagency.createJSON(path);
 }
 
+
+void UpAndAway::on_fromDateEdit_userDateChanged(const QDate &date)
+{
+    travelagency.booking[selectedBookingVectorLocation]->setFromQDate(date);
+    //Widgetliste aktualisieren
+    //Attributliste aktualisieren
+}
+
