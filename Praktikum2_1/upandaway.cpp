@@ -64,7 +64,7 @@ void UpAndAway::on_idInputSpinBox_valueChanged(int arg1)
                                      +"\nZielflughafen: " + QString::fromStdString(dynamic_cast<FlightBooking*>(travelagency.booking[stelleImVektor])->getToDestination())+
                                      "\nFluggesellschaft: " +QString::fromStdString(dynamic_cast<FlightBooking*>(travelagency.booking[stelleImVektor])->getAirline()));
         }else if(typeid(RentalCarReservation) == typeid(*(travelagency.booking[stelleImVektor]))){
-            ui->textBrowser->setText("Typ: Flugbuchung\nID: "+ QString::number(travelagency.booking[stelleImVektor]->getId()) +
+            ui->textBrowser->setText("Typ: Mietwagenreservierung\nID: "+ QString::number(travelagency.booking[stelleImVektor]->getId()) +
                                      "\nStartdatum: " + QString::fromStdString(travelagency.booking[stelleImVektor]->getFromDate())
                                      +"\nEnddatum: " + QString::fromStdString(travelagency.booking[stelleImVektor]->getToDate())+
                                      "\nPreis: " + QString::number(travelagency.booking[stelleImVektor]->getPrice(),'f',2)+
@@ -72,7 +72,7 @@ void UpAndAway::on_idInputSpinBox_valueChanged(int arg1)
                                      "\nRückgabestation: " + QString::fromStdString(dynamic_cast<RentalCarReservation*>(travelagency.booking[stelleImVektor])->getReturnLocation())+
                                      "\nFirma: " + QString::fromStdString(dynamic_cast<RentalCarReservation*>(travelagency.booking[stelleImVektor])->getCompany()));
         }else if(typeid(HotelBooking) == typeid(*(travelagency.booking[stelleImVektor]))){
-            ui->textBrowser->setText("Typ: Flugbuchung\nID: "+ QString::number(travelagency.booking[stelleImVektor]->getId()) +
+            ui->textBrowser->setText("Typ: Hotelbuchung\nID: "+ QString::number(travelagency.booking[stelleImVektor]->getId()) +
                                      "\nStartdatum: " + QString::fromStdString(travelagency.booking[stelleImVektor]->getFromDate())
                                      +"\nEnddatum: " + QString::fromStdString(travelagency.booking[stelleImVektor]->getToDate())+
                                      "\nPreis: " + QString::number(travelagency.booking[stelleImVektor]->getPrice(),'f',2)+
