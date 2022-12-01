@@ -12,9 +12,9 @@ HotelBooking::~HotelBooking()
 cout << "Hotelbuchung wird gelöscht\n";
 }
 
-HotelBooking::HotelBooking(int idInput, double priceInput, std::string fromDateInput,
-                           std::string toDateInput, std::string hotelInput,
-                           std::string townInput)
+HotelBooking::HotelBooking(int idInput, double priceInput, QString fromDateInput,
+                           QString toDateInput, QString hotelInput,
+                           QString townInput)
     :Booking(idInput, priceInput, fromDateInput, toDateInput), hotel(hotelInput),
       town(townInput)
 {
@@ -46,35 +46,30 @@ HotelBooking::HotelBooking(long idInput, double priceInput, char fromDateInput[]
     }
 }
 
-string HotelBooking::showDetails()
+QString HotelBooking::showDetails()
 {
-    cout << "Hotelreservierung " << id << " im " << hotel << " in " << town << " vom " <<
-            fromDate << " bis zum " << toDate << ". Preis: " << fixed << setprecision(2)<< price << " €.\n";
-    string idString;
-    idString = to_string(id);
-    stringstream stream;
-    stream << std::fixed << std::setprecision(2) << price;
-    string priceString = stream.str();
+    QString idString = idString.number(id);
+    QString priceString = QString::number(price, 'f', 2);
     return "Hotelreservierung " + idString + " im " + hotel + " in " + town + " vom " +
             fromDate + " bis zum " + toDate + ". Preis: " + priceString + " €.";
 }
 
-const std::string &HotelBooking::getHotel() const
+const QString &HotelBooking::getHotel() const
 {
     return hotel;
 }
 
-void HotelBooking::setHotel(const std::string &newHotel)
+void HotelBooking::setHotel(const QString &newHotel)
 {
     hotel = newHotel;
 }
 
-const std::string &HotelBooking::getTown() const
+const QString &HotelBooking::getTown() const
 {
     return town;
 }
 
-void HotelBooking::setTown(const std::string &newTown)
+void HotelBooking::setTown(const QString &newTown)
 {
     town = newTown;
 }

@@ -12,30 +12,22 @@ RentalCarReservation::~RentalCarReservation()
     cout << "Mietwagen wird gelöscht\n";
 }
 
-string RentalCarReservation::showDetails()
+QString RentalCarReservation::showDetails()
 {
-    cout << "Mietwagenreservierung " << id << " mit " << company << ". Abholung am " <<
-            fromDate << " im " << pickupLocation << ". Rückgabe am " << toDate <<
-            " in " << returnLocation << ". Preis: " << fixed << setprecision(2) << price << " €.\n";
-    string idString;
-    idString = to_string(id);
-    stringstream stream;
-    stream << std::fixed << std::setprecision(2) << price;
-    string priceString = stream.str();
-    stringstream string;
-    string << fixed << setprecision(2) << priceString;
+    QString idString = idString.number(id);
+    QString priceString = QString::number(price, 'f', 2);
     return "Mietwagenreservierung " + idString + " mit " + company +  ". Abholung am " +
             fromDate + " im " + pickupLocation + ". Rückgabe am " + toDate +
-            " in " + returnLocation + ". Preis: " + string.str() + " €.";
+            " in " + returnLocation + ". Preis: " + priceString + " €.";
 
 }
 
 RentalCarReservation::RentalCarReservation(int idInput, double priceInput,
-                                           std::string fromDateInput,
-                                           std::string toDateInput,
-                                           std::string pickupLocationInput,
-                                           std::string returnLocationInput,
-                                           std::string companyInput)
+                                           QString fromDateInput,
+                                           QString toDateInput,
+                                           QString pickupLocationInput,
+                                           QString returnLocationInput,
+                                           QString companyInput)
     :Booking(idInput, priceInput, fromDateInput, toDateInput),
       pickupLocation(pickupLocationInput),  returnLocation(returnLocationInput),
       company(companyInput)
@@ -81,32 +73,32 @@ RentalCarReservation::RentalCarReservation(long idInput, double priceInput,
     }
 }
 
-const std::string &RentalCarReservation::getPickupLocation() const
+const QString &RentalCarReservation::getPickupLocation() const
 {
     return pickupLocation;
 }
 
-void RentalCarReservation::setPickupLocation(const std::string &newPickupLocation)
+void RentalCarReservation::setPickupLocation(const QString &newPickupLocation)
 {
     pickupLocation = newPickupLocation;
 }
 
-const std::string &RentalCarReservation::getReturnLocation() const
+const QString &RentalCarReservation::getReturnLocation() const
 {
     return returnLocation;
 }
 
-void RentalCarReservation::setReturnLocation(const std::string &newReturnLocation)
+void RentalCarReservation::setReturnLocation(const QString &newReturnLocation)
 {
     returnLocation = newReturnLocation;
 }
 
-const std::string &RentalCarReservation::getCompany() const
+const QString &RentalCarReservation::getCompany() const
 {
     return company;
 }
 
-void RentalCarReservation::setCompany(const std::string &newCompany)
+void RentalCarReservation::setCompany(const QString &newCompany)
 {
     company = newCompany;
 }

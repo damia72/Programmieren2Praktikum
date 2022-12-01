@@ -1,5 +1,4 @@
 #include "booking.h"
-
 Booking::Booking()
 {
 
@@ -22,24 +21,25 @@ double Booking::getPrice() const
 
 QDate Booking::getFromQDate()
 {
-    QDate date(stoi(fromDate.substr(6,4)),stoi(fromDate.substr(3,2)),stoi(fromDate.substr(0,2)));
+    QDate date(fromDate.mid(6,4).toInt(),fromDate.mid(3,2).toInt(),fromDate.mid(0,2).toInt());
     return date;
 }
 
 QDate Booking::getToQdate()
 {
-    QDate date(stoi(toDate.substr(6,4)),stoi(toDate.substr(3,2)),stoi(toDate.substr(0,2)));
+    QDate date(toDate.mid(6,4).toInt(),toDate.mid(3,2).toInt(),toDate.mid(0,2).toInt());
+    QDate test2(1234,12,23);
     return date;
 }
 
 void Booking::setFromQDate(QDate fromDateInput)
 {
-    fromDate = fromDateInput.toString("dd.MM.yyyy").toStdString();
+    fromDate = fromDateInput.toString("dd.MM.yyyy");
 }
 
 void Booking::settoQDate(QDate toDateInput)
 {
-    toDate = toDateInput.toString("dd.MM.yyyy").toStdString();
+    toDate = toDateInput.toString("dd.MM.yyyy");
 }
 
 void Booking::setPrice(double newPrice)
@@ -47,28 +47,28 @@ void Booking::setPrice(double newPrice)
     price = newPrice;
 }
 
-const std::string &Booking::getFromDate() const
+const QString &Booking::getFromDate() const
 {
     return fromDate;
 }
 
-void Booking::setFromDate(const std::string &newFromDate)
+void Booking::setFromDate(const QString &newFromDate)
 {
     fromDate = newFromDate;
 }
 
-const std::string &Booking::getToDate() const
+const QString &Booking::getToDate() const
 {
     return toDate;
 }
 
-Booking::Booking(int idInput, double priceInput, std::string fromDateInput,
-                 std::string toDateInput)
+Booking::Booking(int idInput, double priceInput, QString fromDateInput,
+                 QString toDateInput)
     :id(idInput), price(priceInput), fromDate(fromDateInput), toDate(toDateInput)
 {
     //DatumFormatierung:
-fromDate = fromDate.substr(6,2) + "." + fromDate.substr(4,2) + "." + fromDate.substr(0,4);
-toDate = toDate.substr(6,2) + "." + toDate.substr(4,2) + "." + toDate.substr(0,4);
+fromDate = fromDate.mid(6,2) + "." + fromDate.mid(4,2) + "." + fromDate.mid(0,4);
+toDate = toDate.mid(6,2) + "." + toDate.mid(4,2) + "." + toDate.mid(0,4);
 }
 
 Booking::Booking(long idInput, double priceInput, char fromDateInput[], char toDateInput[])
@@ -77,7 +77,7 @@ Booking::Booking(long idInput, double priceInput, char fromDateInput[], char toD
     price = priceInput;
     //fromDate formatieren:
     {
-    std::string tag, monat, jahr;
+    QString tag, monat, jahr;
     for(int i = 0; i < 4; i++){
         jahr.push_back(fromDateInput[i]);
     }
@@ -89,7 +89,7 @@ Booking::Booking(long idInput, double priceInput, char fromDateInput[], char toD
     }
     //toDate formatieren:
     {
-    std::string tag, monat, jahr;
+    QString tag, monat, jahr;
     for(int i = 0; i < 4; i++){
         jahr.push_back(toDateInput[i]);
     }

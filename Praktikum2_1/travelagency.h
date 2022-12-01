@@ -9,8 +9,7 @@ class TravelAgency
 public:
     TravelAgency();
     ~TravelAgency();
-    bool readfile(std::string fileName, QWidget* window);
-    bool readBinaryFile();
+    bool readfile(QString fileName, QWidget* window);
     bool createJSON(QString fileName);
     Booking * findBooking(long id);
     Travel* findTravel(long id);
@@ -23,8 +22,8 @@ public:
 private:
 
 
-    bool sindDasZahlen(std::string testString);
-    std::string datumFormatieren(std::string datum);
+    bool sindDasZahlen(QString testString);
+    QString datumFormatieren(QString datum);
 };
 
 #endif // TRAVELAGENCY_H

@@ -1,6 +1,6 @@
 #include "customer.h"
 
-Customer::Customer(long id, std::string name) : id(id), name(name)
+Customer::Customer(long id, QString name) : id(id), name(name)
 {
 
 }

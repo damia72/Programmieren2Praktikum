@@ -6,11 +6,11 @@
 class Customer
 {
 public:
-    Customer(long id, std::string name);
+    Customer(long id, QString name);
     void addTravel(Travel* travel);
 private:
     long id;
-    std::string name;
+    QString name;
     std::vector<Travel*> travelList;
 };
 

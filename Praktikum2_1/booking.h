@@ -1,13 +1,13 @@
 #ifndef BOOKING_H
 #define BOOKING_H
-#include <string>
+#include <QString>
 #include <QDate>
 class Booking
 {
 public:
     Booking();
     virtual ~Booking();
-    virtual std::string showDetails() = 0;
+    virtual QString showDetails() = 0;
     int getId() const;
 
     double getPrice() const;
@@ -17,19 +17,19 @@ public:
     void settoQDate(QDate toDateInput);
     void setPrice(double newPrice);
 
-    const std::string &getFromDate() const;
-    void setFromDate(const std::string &newFromDate);
+    const QString &getFromDate() const;
+    void setFromDate(const QString &newFromDate);
 
-    const std::string &getToDate() const;
+    const QString &getToDate() const;
 
 protected:
     long travelId;
     int id;
     double price;
-    std::string fromDate;
-    std::string toDate;
-    Booking(int idInput, double priceInput, std::string fromDateInput,
-            std::string toDateInput);
+    QString fromDate;
+    QString toDate;
+    Booking(int idInput, double priceInput, QString fromDateInput,
+            QString toDateInput);
     Booking(long idInput, double priceInput, char fromDateInput[], char toDateInput[]);
 
 };

@@ -7,26 +7,26 @@ class RentalCarReservation : public Booking
 public:
     RentalCarReservation();
     ~RentalCarReservation();
-    std::string showDetails();
-    RentalCarReservation(int idInput, double priceInput, std::string fromDateInput,
-                         std::string toDateInput, std::string pickupLocationInput,
-                         std::string returnLocationInput, std::string companyInput);
+    QString showDetails();
+    RentalCarReservation(int idInput, double priceInput, QString fromDateInput,
+                         QString toDateInput, QString pickupLocationInput,
+                         QString returnLocationInput, QString companyInput);
     RentalCarReservation(long idInput, double priceInput, char fromDateInput[],
                                char toDateInput[], char pickupLocationInput[],
                          char returnLocationInput[], char companyInput[]);
-    const std::string &getPickupLocation() const;
-    void setPickupLocation(const std::string &newPickupLocation);
+    const QString &getPickupLocation() const;
+    void setPickupLocation(const QString &newPickupLocation);
 
-    const std::string &getReturnLocation() const;
-    void setReturnLocation(const std::string &newReturnLocation);
+    const QString &getReturnLocation() const;
+    void setReturnLocation(const QString &newReturnLocation);
 
-    const std::string &getCompany() const;
-    void setCompany(const std::string &newCompany);
+    const QString &getCompany() const;
+    void setCompany(const QString &newCompany);
 
 private:
-    std::string pickupLocation;
-    std::string returnLocation;
-    std::string company;
+    QString pickupLocation;
+    QString returnLocation;
+    QString company;
 };
 
 #endif // RENTALCARRESERVATION_H

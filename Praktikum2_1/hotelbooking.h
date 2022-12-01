@@ -7,21 +7,21 @@ class HotelBooking : public Booking
 public:
     HotelBooking();
     ~HotelBooking();
-    HotelBooking(int idInput, double priceInput, std::string fromDateInput,
-                 std::string toDateInput, std::string hotelInput, std::string townInput);
+    HotelBooking(int idInput, double priceInput, QString fromDateInput,
+                 QString toDateInput, QString hotelInput, QString townInput);
     HotelBooking(long idInput, double priceInput, char fromDateInput[],
                                  char toDateInput[], char hotelInput[],
                                  char townInput[]);
-    std::string showDetails();
-    const std::string &getHotel() const;
-    void setHotel(const std::string &newHotel);
+    QString showDetails();
+    const QString &getHotel() const;
+    void setHotel(const QString &newHotel);
 
-    const std::string &getTown() const;
-    void setTown(const std::string &newTown);
+    const QString &getTown() const;
+    void setTown(const QString &newTown);
 
 private:
-    std::string hotel;
-    std::string town;
+    QString hotel;
+    QString town;
 };
 
 #endif // HOTELBOOKING_H
