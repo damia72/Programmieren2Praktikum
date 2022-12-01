@@ -12,6 +12,8 @@
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QFile>
+#include "travel.h"
+#include "customer.h"
 using namespace std;
 
 TravelAgency::TravelAgency()
@@ -66,11 +68,11 @@ bool TravelAgency::readfile(string fileName, QWidget *window)
                         spaltenCounter++;
                     }
                 }
-                if (spaltenCounter!=6){
-                    if(spaltenCounter < 6){
+                if (spaltenCounter!=9){
+                    if(spaltenCounter < 9){
                         throw runtime_error("Fehler: zu wenig Spalten in Zeile " + to_string(aktuelleZeile) + ".\n");
                     }
-                    if(spaltenCounter > 6){
+                    if(spaltenCounter > 9){
                         throw runtime_error("Fehler: zu viele Spalten in Zeile " + to_string(aktuelleZeile) + ".\n");
                     }
                 }
@@ -129,7 +131,7 @@ bool TravelAgency::readfile(string fileName, QWidget *window)
             FlightBooking* flightBooking =
                     new FlightBooking(id, price, fromDate, toDate,
                                       fromDestination, toDestination,airline);
-            booking.push_back(flightBooking);
+            allBookings.push_back(flightBooking);
             flightImportCount++;
             totalFlightCost += price;
         }else if(typErkennung == 'R'){
@@ -145,11 +147,11 @@ bool TravelAgency::readfile(string fileName, QWidget *window)
                         spaltenCounter++;
                     }
                 }
-                if (spaltenCounter!=6){
-                    if(spaltenCounter < 6){
+                if (spaltenCounter!=9){
+                    if(spaltenCounter < 9){
                         throw runtime_error("Fehler: zu wenig Spalten in Zeile " + to_string(aktuelleZeile) + ".\n");
                     }
-                    if(spaltenCounter > 6){
+                    if(spaltenCounter > 9){
                         throw runtime_error("Fehler: zu viele Spalten in Zeile " + to_string(aktuelleZeile) + ".\n");
                     }
                 }
@@ -199,7 +201,7 @@ bool TravelAgency::readfile(string fileName, QWidget *window)
             RentalCarReservation* rentalCarReservation =
                     new RentalCarReservation(id, price, fromDate, toDate, pickupLocation,
                                              returnLocation, company);
-            booking.push_back(rentalCarReservation);
+            allBookings.push_back(rentalCarReservation);
             rentalCarImportCount++;
             totalRentalCarCost += price;
 
@@ -216,11 +218,11 @@ bool TravelAgency::readfile(string fileName, QWidget *window)
                     spaltenCounter++;
                 }
             }
-            if (spaltenCounter!=5){
-                if(spaltenCounter < 5){
+            if (spaltenCounter!=8){
+                if(spaltenCounter < 8){
                     throw runtime_error("Fehler: zu wenig Spalten in Zeile " + to_string(aktuelleZeile) + ".\n");
                 }
-                if(spaltenCounter > 5){
+                if(spaltenCounter > 8){
                     throw runtime_error("Fehler: zu viele Spalten in Zeile " + to_string(aktuelleZeile) + ".\n");
                 }
             }
@@ -268,7 +270,7 @@ bool TravelAgency::readfile(string fileName, QWidget *window)
             HotelBooking* hotelBooking =
                     new HotelBooking(id, price, fromDate, toDate, hotel,
                                      town);
-            booking.push_back(hotelBooking);
+            allBookings.push_back(hotelBooking);
             hotelImportCount++;
             totalHotelImportCost += price;
         }
@@ -339,7 +341,7 @@ bool TravelAgency::readBinaryFile()
             }
             FlightBooking* flightBooking =
                     new FlightBooking(id, price, fromDate, toDate, fromDestination, toDestination, airline);
-            booking.push_back(flightBooking);
+            allBookings.push_back(flightBooking);
             flightImportCount++;
             totalFlightCost += price;
         }else if(typErkennung == 'H'){
@@ -362,7 +364,7 @@ bool TravelAgency::readBinaryFile()
             }
             HotelBooking* hotelBooking =
                     new HotelBooking(id, price, fromDate, toDate, hotel, town);
-            booking.push_back(hotelBooking);
+            allBookings.push_back(hotelBooking);
             hotelImportCount++;
             totalHotelImportCost += price;
         }else if(typErkennung == 'R'){
@@ -388,7 +390,7 @@ bool TravelAgency::readBinaryFile()
             }
             RentalCarReservation* rentalCarReservation =
                     new RentalCarReservation(id, price, fromDate, toDate, pickupLocation, returnLocation, company);
-            booking.push_back(rentalCarReservation);
+            allBookings.push_back(rentalCarReservation);
             rentalCarImportCount++;
             totalRentalCarCost += price;
         }
@@ -406,33 +408,40 @@ bool TravelAgency::readBinaryFile()
 bool TravelAgency::createJSON(QString fileName)
 {
     QJsonDocument jsonDocument;
-    QJsonArray bookings;
-    for (unsigned int i = 0; i < booking.size(); i++){
-        QJsonObject jsonObjectBuchung;
-        if(typeid(FlightBooking) == typeid(*(booking[i]))){
+    QJsonArray mietWagen, hotelBuchung, flugBuchung;
+    QJsonObject bookings;
+    for (unsigned int i = 0; i < allBookings.size(); i++){
+        QJsonObject jsonObjectBuchung;        
+        jsonObjectBuchung["id"] = allBookings[i]->getId();
+        jsonObjectBuchung["fromDate"] = QString::fromStdString(allBookings[i]->getFromDate());
+        jsonObjectBuchung["toDate"] = QString::fromStdString(allBookings[i]->getToDate());
+        jsonObjectBuchung["price"] = allBookings[i]->getPrice();
+        if(typeid(FlightBooking) == typeid(*(allBookings[i]))){
             jsonObjectBuchung["type"] = "F";
-            jsonObjectBuchung["fromDestination"] = QString::fromStdString(dynamic_cast<FlightBooking*>(booking[i])->getFromDestination());
-            jsonObjectBuchung["toDestination"] = QString::fromStdString(dynamic_cast<FlightBooking*>(booking[i])->getToDestination());
-            jsonObjectBuchung["airline"] = QString::fromStdString(dynamic_cast<FlightBooking*>(booking[i])->getAirline());
+            jsonObjectBuchung["fromDestination"] = QString::fromStdString(dynamic_cast<FlightBooking*>(allBookings[i])->getFromDestination());
+            jsonObjectBuchung["toDestination"] = QString::fromStdString(dynamic_cast<FlightBooking*>(allBookings[i])->getToDestination());
+            jsonObjectBuchung["airline"] = QString::fromStdString(dynamic_cast<FlightBooking*>(allBookings[i])->getAirline());
+            flugBuchung.push_back(jsonObjectBuchung);
         }
-        if(typeid(RentalCarReservation) == typeid(*(booking[i]))){
+        if(typeid(RentalCarReservation) == typeid(*(allBookings[i]))){
             jsonObjectBuchung["type"] = "R";
-            jsonObjectBuchung["pickupLocation"] = QString::fromStdString(dynamic_cast<RentalCarReservation*>(booking[i])->getPickupLocation());
-            jsonObjectBuchung["returnLocation"] = QString::fromStdString(dynamic_cast<RentalCarReservation*>(booking[i])->getReturnLocation());
-            jsonObjectBuchung["company"] = QString::fromStdString(dynamic_cast<RentalCarReservation*>(booking[i])->getCompany());
+            jsonObjectBuchung["pickupLocation"] = QString::fromStdString(dynamic_cast<RentalCarReservation*>(allBookings[i])->getPickupLocation());
+            jsonObjectBuchung["returnLocation"] = QString::fromStdString(dynamic_cast<RentalCarReservation*>(allBookings[i])->getReturnLocation());
+            jsonObjectBuchung["company"] = QString::fromStdString(dynamic_cast<RentalCarReservation*>(allBookings[i])->getCompany());
+            mietWagen.push_back(jsonObjectBuchung);
         }
-        if(typeid(HotelBooking) == typeid(*(booking[i]))){
+        if(typeid(HotelBooking) == typeid(*(allBookings[i]))){
             jsonObjectBuchung["type"] = "H";
-            jsonObjectBuchung["hotel"] = QString::fromStdString(dynamic_cast<HotelBooking*>(booking[i])->getHotel());
-            jsonObjectBuchung["town"] = QString::fromStdString(dynamic_cast<HotelBooking*>(booking[i])->getTown());
+            jsonObjectBuchung["hotel"] = QString::fromStdString(dynamic_cast<HotelBooking*>(allBookings[i])->getHotel());
+            jsonObjectBuchung["town"] = QString::fromStdString(dynamic_cast<HotelBooking*>(allBookings[i])->getTown());
+            hotelBuchung.push_back(jsonObjectBuchung);
         }
-        jsonObjectBuchung["id"] = booking[i]->getId();
-        jsonObjectBuchung["fromDate"] = QString::fromStdString(booking[i]->getFromDate());
-        jsonObjectBuchung["toDate"] = QString::fromStdString(booking[i]->getToDate());
-        jsonObjectBuchung["price"] = booking[i]->getPrice();
-        bookings.push_back(jsonObjectBuchung);
+
     }
-    jsonDocument.setArray(bookings);
+    bookings["Mietwagenreservierungen"] = mietWagen;
+    bookings["Hotelbuchungen"] = hotelBuchung;
+    bookings["Flugbuchungen"] = flugBuchung;
+    jsonDocument.setObject(bookings);
     QFile datei(fileName);
     if (!datei.open(QIODevice::WriteOnly)){
         qDebug() << "Datei konnte nicht geoeffnet werden";
@@ -445,8 +454,8 @@ bool TravelAgency::createJSON(QString fileName)
 
 int TravelAgency::suche(int zuSuchendeId)
 {
-for(unsigned int i = 0; i < booking.size(); i++){
-    if(booking[i]->getId() == zuSuchendeId){
+for(unsigned int i = 0; i < allBookings.size(); i++){
+    if(allBookings[i]->getId() == zuSuchendeId){
         return i;
     }
 }
@@ -456,17 +465,15 @@ return -1;
 void TravelAgency::cleanBookings()
 {
     //ignoriert die funktion wenn vektor leer ist
-    if(booking.size() == 0){
+    if(allBookings.size() == 0){
         return;
     }
     //löscht objekte
-    for(unsigned long i = 0;i < booking.size();i++){
-        delete this->booking[i];
+    for(unsigned long i = 0;i < allBookings.size();i++){
+        delete this->allBookings[i];
     }
     //löscht die plätze im Vektor
-    while(booking.size()!= 0){
-        booking.pop_back();
-    }
+    allBookings.clear();
 }
 
 bool TravelAgency::sindDasZahlen(std::string testString)

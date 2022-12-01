@@ -23,7 +23,7 @@ public:
     const std::string &getToDate() const;
 
 protected:
-
+    long travelId;
     int id;
     double price;
     std::string fromDate;

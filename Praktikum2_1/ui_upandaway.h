@@ -34,6 +34,19 @@ class Ui_UpAndAway
 {
 public:
     QWidget *centralwidget;
+    QHBoxLayout *horizontalLayout_2;
+    QVBoxLayout *verticalLayout_6;
+    QGroupBox *groupBox;
+    QVBoxLayout *verticalLayout_4;
+    QVBoxLayout *verticalLayout_3;
+    QPushButton *readFileButton;
+    QPushButton *JSONErstellenButton;
+    QGroupBox *groupBox_2;
+    QVBoxLayout *verticalLayout_5;
+    QLabel *label;
+    QSpinBox *idInputSpinBox;
+    QTextBrowser *textBrowser;
+    QSpacerItem *verticalSpacer;
     QListWidget *listWidget;
     QGroupBox *groupBox_3;
     QWidget *layoutWidget;
@@ -62,19 +75,6 @@ public:
     QLineEdit *townLineEdit;
     QLineEdit *pickupStationLineEdit;
     QLineEdit *returnStationLineEdit;
-    QWidget *layoutWidget1;
-    QVBoxLayout *verticalLayout_6;
-    QGroupBox *groupBox;
-    QVBoxLayout *verticalLayout_4;
-    QVBoxLayout *verticalLayout_3;
-    QPushButton *readFileButton;
-    QPushButton *JSONErstellenButton;
-    QGroupBox *groupBox_2;
-    QVBoxLayout *verticalLayout_5;
-    QLabel *label;
-    QSpinBox *idInputSpinBox;
-    QTextBrowser *textBrowser;
-    QSpacerItem *verticalSpacer;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -82,15 +82,90 @@ public:
     {
         if (UpAndAway->objectName().isEmpty())
             UpAndAway->setObjectName(QString::fromUtf8("UpAndAway"));
-        UpAndAway->resize(952, 462);
+        UpAndAway->resize(1241, 450);
         centralwidget = new QWidget(UpAndAway);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
+        horizontalLayout_2 = new QHBoxLayout(centralwidget);
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        verticalLayout_6 = new QVBoxLayout();
+        verticalLayout_6->setObjectName(QString::fromUtf8("verticalLayout_6"));
+        groupBox = new QGroupBox(centralwidget);
+        groupBox->setObjectName(QString::fromUtf8("groupBox"));
+        verticalLayout_4 = new QVBoxLayout(groupBox);
+        verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
+        verticalLayout_3 = new QVBoxLayout();
+        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
+        readFileButton = new QPushButton(groupBox);
+        readFileButton->setObjectName(QString::fromUtf8("readFileButton"));
+
+        verticalLayout_3->addWidget(readFileButton);
+
+        JSONErstellenButton = new QPushButton(groupBox);
+        JSONErstellenButton->setObjectName(QString::fromUtf8("JSONErstellenButton"));
+
+        verticalLayout_3->addWidget(JSONErstellenButton);
+
+
+        verticalLayout_4->addLayout(verticalLayout_3);
+
+
+        verticalLayout_6->addWidget(groupBox);
+
+        groupBox_2 = new QGroupBox(centralwidget);
+        groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
+        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(groupBox_2->sizePolicy().hasHeightForWidth());
+        groupBox_2->setSizePolicy(sizePolicy);
+        groupBox_2->setMinimumSize(QSize(159, 288));
+        verticalLayout_5 = new QVBoxLayout(groupBox_2);
+        verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
+        label = new QLabel(groupBox_2);
+        label->setObjectName(QString::fromUtf8("label"));
+        label->setMinimumSize(QSize(81, 16));
+
+        verticalLayout_5->addWidget(label);
+
+        idInputSpinBox = new QSpinBox(groupBox_2);
+        idInputSpinBox->setObjectName(QString::fromUtf8("idInputSpinBox"));
+        idInputSpinBox->setMinimumSize(QSize(81, 25));
+        idInputSpinBox->setMaximum(1234567);
+
+        verticalLayout_5->addWidget(idInputSpinBox);
+
+        textBrowser = new QTextBrowser(groupBox_2);
+        textBrowser->setObjectName(QString::fromUtf8("textBrowser"));
+        QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Expanding);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(textBrowser->sizePolicy().hasHeightForWidth());
+        textBrowser->setSizePolicy(sizePolicy1);
+        textBrowser->setMinimumSize(QSize(135, 192));
+        textBrowser->setMaximumSize(QSize(135, 192));
+
+        verticalLayout_5->addWidget(textBrowser);
+
+
+        verticalLayout_6->addWidget(groupBox_2);
+
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_6->addItem(verticalSpacer);
+
+
+        horizontalLayout_2->addLayout(verticalLayout_6);
+
         listWidget = new QListWidget(centralwidget);
         listWidget->setObjectName(QString::fromUtf8("listWidget"));
-        listWidget->setGeometry(QRect(310, 10, 371, 401));
+
+        horizontalLayout_2->addWidget(listWidget);
+
         groupBox_3 = new QGroupBox(centralwidget);
         groupBox_3->setObjectName(QString::fromUtf8("groupBox_3"));
-        groupBox_3->setGeometry(QRect(690, 20, 241, 391));
+        sizePolicy.setHeightForWidth(groupBox_3->sizePolicy().hasHeightForWidth());
+        groupBox_3->setSizePolicy(sizePolicy);
+        groupBox_3->setMinimumSize(QSize(241, 391));
         layoutWidget = new QWidget(groupBox_3);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
         layoutWidget->setGeometry(QRect(10, 30, 208, 332));
@@ -218,73 +293,13 @@ public:
 
         horizontalLayout->addLayout(verticalLayout_2);
 
-        layoutWidget1 = new QWidget(centralwidget);
-        layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(10, 10, 282, 401));
-        verticalLayout_6 = new QVBoxLayout(layoutWidget1);
-        verticalLayout_6->setObjectName(QString::fromUtf8("verticalLayout_6"));
-        verticalLayout_6->setContentsMargins(0, 0, 0, 0);
-        groupBox = new QGroupBox(layoutWidget1);
-        groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        verticalLayout_4 = new QVBoxLayout(groupBox);
-        verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
-        verticalLayout_3 = new QVBoxLayout();
-        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
-        readFileButton = new QPushButton(groupBox);
-        readFileButton->setObjectName(QString::fromUtf8("readFileButton"));
 
-        verticalLayout_3->addWidget(readFileButton);
-
-        JSONErstellenButton = new QPushButton(groupBox);
-        JSONErstellenButton->setObjectName(QString::fromUtf8("JSONErstellenButton"));
-
-        verticalLayout_3->addWidget(JSONErstellenButton);
-
-
-        verticalLayout_4->addLayout(verticalLayout_3);
-
-
-        verticalLayout_6->addWidget(groupBox);
-
-        groupBox_2 = new QGroupBox(layoutWidget1);
-        groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
-        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(groupBox_2->sizePolicy().hasHeightForWidth());
-        groupBox_2->setSizePolicy(sizePolicy);
-        verticalLayout_5 = new QVBoxLayout(groupBox_2);
-        verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
-        label = new QLabel(groupBox_2);
-        label->setObjectName(QString::fromUtf8("label"));
-        label->setMinimumSize(QSize(81, 16));
-
-        verticalLayout_5->addWidget(label);
-
-        idInputSpinBox = new QSpinBox(groupBox_2);
-        idInputSpinBox->setObjectName(QString::fromUtf8("idInputSpinBox"));
-        idInputSpinBox->setMinimumSize(QSize(81, 25));
-        idInputSpinBox->setMaximum(1234567);
-
-        verticalLayout_5->addWidget(idInputSpinBox);
-
-        textBrowser = new QTextBrowser(groupBox_2);
-        textBrowser->setObjectName(QString::fromUtf8("textBrowser"));
-        textBrowser->setMinimumSize(QSize(81, 101));
-
-        verticalLayout_5->addWidget(textBrowser);
-
-
-        verticalLayout_6->addWidget(groupBox_2);
-
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
-        verticalLayout_6->addItem(verticalSpacer);
+        horizontalLayout_2->addWidget(groupBox_3);
 
         UpAndAway->setCentralWidget(centralwidget);
         menubar = new QMenuBar(UpAndAway);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 952, 21));
+        menubar->setGeometry(QRect(0, 0, 1241, 21));
         UpAndAway->setMenuBar(menubar);
         statusbar = new QStatusBar(UpAndAway);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -298,6 +313,11 @@ public:
     void retranslateUi(QMainWindow *UpAndAway)
     {
         UpAndAway->setWindowTitle(QCoreApplication::translate("UpAndAway", "UpAndAway", nullptr));
+        groupBox->setTitle(QCoreApplication::translate("UpAndAway", "Datei", nullptr));
+        readFileButton->setText(QCoreApplication::translate("UpAndAway", "Datei einlesen", nullptr));
+        JSONErstellenButton->setText(QCoreApplication::translate("UpAndAway", "JSON erstellen", nullptr));
+        groupBox_2->setTitle(QCoreApplication::translate("UpAndAway", "Suche \303\274ber ID", nullptr));
+        label->setText(QCoreApplication::translate("UpAndAway", "ID eingeben:", nullptr));
         groupBox_3->setTitle(QCoreApplication::translate("UpAndAway", "Daten \303\244ndern", nullptr));
         label_2->setText(QCoreApplication::translate("UpAndAway", "Id", nullptr));
         label_3->setText(QCoreApplication::translate("UpAndAway", "Startdatum", nullptr));
@@ -310,11 +330,6 @@ public:
         label_10->setText(QCoreApplication::translate("UpAndAway", "Stadt", nullptr));
         label_11->setText(QCoreApplication::translate("UpAndAway", "Abholstation", nullptr));
         label_12->setText(QCoreApplication::translate("UpAndAway", "R\303\274ckgabestation", nullptr));
-        groupBox->setTitle(QCoreApplication::translate("UpAndAway", "Datei", nullptr));
-        readFileButton->setText(QCoreApplication::translate("UpAndAway", "Datei einlesen", nullptr));
-        JSONErstellenButton->setText(QCoreApplication::translate("UpAndAway", "JSON erstellen", nullptr));
-        groupBox_2->setTitle(QCoreApplication::translate("UpAndAway", "Suche \303\274ber ID", nullptr));
-        label->setText(QCoreApplication::translate("UpAndAway", "ID eingeben:", nullptr));
     } // retranslateUi
 
 };

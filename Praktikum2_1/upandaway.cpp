@@ -34,8 +34,8 @@ void UpAndAway::on_readFileButton_clicked()
         QMessageBox::critical(this, "Einlesen fehlgeschlagen!", "Das einlesen ist Fehlgeschlagen folgender Fehler"
                                                                 " wurde entdeckt: " + fehler );
     }
-    for(unsigned int i = 0; i < travelagency.booking.size(); i++){
-        ui->listWidget->addItem(QString::fromStdString(travelagency.booking[i]->showDetails()));
+    for(unsigned int i = 0; i < travelagency.allBookings.size(); i++){
+        ui->listWidget->addItem(QString::fromStdString(travelagency.allBookings[i]->showDetails()));
     }
 
 }
@@ -55,29 +55,29 @@ void UpAndAway::on_idInputSpinBox_valueChanged(int arg1)
     }
     int stelleImVektor = travelagency.suche(arg1);
     if(stelleImVektor >= 0){
-        if(typeid(FlightBooking) == typeid(*(travelagency.booking[stelleImVektor]))){
-            ui->textBrowser->setText("Typ: Flugbuchung\nID: "+ QString::number(travelagency.booking[stelleImVektor]->getId()) +
-                                     "\nStartdatum: " + QString::fromStdString(travelagency.booking[stelleImVektor]->getFromDate())
-                                     +"\nEnddatum: " + QString::fromStdString(travelagency.booking[stelleImVektor]->getToDate())+
-                                     "\nPreis: " + QString::number(travelagency.booking[stelleImVektor]->getPrice(),'f',2)+
-                                     "\nStartflughafen: " + QString::fromStdString(dynamic_cast<FlightBooking*>(travelagency.booking[stelleImVektor])->getFromDestination())
-                                     +"\nZielflughafen: " + QString::fromStdString(dynamic_cast<FlightBooking*>(travelagency.booking[stelleImVektor])->getToDestination())+
-                                     "\nFluggesellschaft: " +QString::fromStdString(dynamic_cast<FlightBooking*>(travelagency.booking[stelleImVektor])->getAirline()));
-        }else if(typeid(RentalCarReservation) == typeid(*(travelagency.booking[stelleImVektor]))){
-            ui->textBrowser->setText("Typ: Mietwagenreservierung\nID: "+ QString::number(travelagency.booking[stelleImVektor]->getId()) +
-                                     "\nStartdatum: " + QString::fromStdString(travelagency.booking[stelleImVektor]->getFromDate())
-                                     +"\nEnddatum: " + QString::fromStdString(travelagency.booking[stelleImVektor]->getToDate())+
-                                     "\nPreis: " + QString::number(travelagency.booking[stelleImVektor]->getPrice(),'f',2)+
-                                     "\nAbholstation: " + QString::fromStdString(dynamic_cast<RentalCarReservation*>(travelagency.booking[stelleImVektor])->getPickupLocation())+
-                                     "\nRückgabestation: " + QString::fromStdString(dynamic_cast<RentalCarReservation*>(travelagency.booking[stelleImVektor])->getReturnLocation())+
-                                     "\nFirma: " + QString::fromStdString(dynamic_cast<RentalCarReservation*>(travelagency.booking[stelleImVektor])->getCompany()));
-        }else if(typeid(HotelBooking) == typeid(*(travelagency.booking[stelleImVektor]))){
-            ui->textBrowser->setText("Typ: Hotelbuchung\nID: "+ QString::number(travelagency.booking[stelleImVektor]->getId()) +
-                                     "\nStartdatum: " + QString::fromStdString(travelagency.booking[stelleImVektor]->getFromDate())
-                                     +"\nEnddatum: " + QString::fromStdString(travelagency.booking[stelleImVektor]->getToDate())+
-                                     "\nPreis: " + QString::number(travelagency.booking[stelleImVektor]->getPrice(),'f',2)+
-                                     "\nHotel: " + QString::fromStdString(dynamic_cast<HotelBooking*>(travelagency.booking[stelleImVektor])->getHotel())+
-                                     "\nTown: " + QString::fromStdString(dynamic_cast<HotelBooking*>(travelagency.booking[stelleImVektor])->getTown()));
+        if(typeid(FlightBooking) == typeid(*(travelagency.allBookings[stelleImVektor]))){
+            ui->textBrowser->setText("Typ: Flugbuchung\nID: "+ QString::number(travelagency.allBookings[stelleImVektor]->getId()) +
+                                     "\nStartdatum: " + QString::fromStdString(travelagency.allBookings[stelleImVektor]->getFromDate())
+                                     +"\nEnddatum: " + QString::fromStdString(travelagency.allBookings[stelleImVektor]->getToDate())+
+                                     "\nPreis: " + QString::number(travelagency.allBookings[stelleImVektor]->getPrice(),'f',2)+
+                                     "\nStartflughafen: " + QString::fromStdString(dynamic_cast<FlightBooking*>(travelagency.allBookings[stelleImVektor])->getFromDestination())
+                                     +"\nZielflughafen: " + QString::fromStdString(dynamic_cast<FlightBooking*>(travelagency.allBookings[stelleImVektor])->getToDestination())+
+                                     "\nFluggesellschaft: " +QString::fromStdString(dynamic_cast<FlightBooking*>(travelagency.allBookings[stelleImVektor])->getAirline()));
+        }else if(typeid(RentalCarReservation) == typeid(*(travelagency.allBookings[stelleImVektor]))){
+            ui->textBrowser->setText("Typ: Mietwagenreservierung\nID: "+ QString::number(travelagency.allBookings[stelleImVektor]->getId()) +
+                                     "\nStartdatum: " + QString::fromStdString(travelagency.allBookings[stelleImVektor]->getFromDate())
+                                     +"\nEnddatum: " + QString::fromStdString(travelagency.allBookings[stelleImVektor]->getToDate())+
+                                     "\nPreis: " + QString::number(travelagency.allBookings[stelleImVektor]->getPrice(),'f',2)+
+                                     "\nAbholstation: " + QString::fromStdString(dynamic_cast<RentalCarReservation*>(travelagency.allBookings[stelleImVektor])->getPickupLocation())+
+                                     "\nRückgabestation: " + QString::fromStdString(dynamic_cast<RentalCarReservation*>(travelagency.allBookings[stelleImVektor])->getReturnLocation())+
+                                     "\nFirma: " + QString::fromStdString(dynamic_cast<RentalCarReservation*>(travelagency.allBookings[stelleImVektor])->getCompany()));
+        }else if(typeid(HotelBooking) == typeid(*(travelagency.allBookings[stelleImVektor]))){
+            ui->textBrowser->setText("Typ: Hotelbuchung\nID: "+ QString::number(travelagency.allBookings[stelleImVektor]->getId()) +
+                                     "\nStartdatum: " + QString::fromStdString(travelagency.allBookings[stelleImVektor]->getFromDate())
+                                     +"\nEnddatum: " + QString::fromStdString(travelagency.allBookings[stelleImVektor]->getToDate())+
+                                     "\nPreis: " + QString::number(travelagency.allBookings[stelleImVektor]->getPrice(),'f',2)+
+                                     "\nHotel: " + QString::fromStdString(dynamic_cast<HotelBooking*>(travelagency.allBookings[stelleImVektor])->getHotel())+
+                                     "\nTown: " + QString::fromStdString(dynamic_cast<HotelBooking*>(travelagency.allBookings[stelleImVektor])->getTown()));
         }
     }else if (stelleImVektor == -1){
         ui->textBrowser->setText("Buchung Existiert nicht");
@@ -105,11 +105,11 @@ void UpAndAway::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
     unsigned int stelleImVektor= travelagency.suche(id);
     selectedBookingVectorLocation = stelleImVektor;
     ui->spinBox->setValue(id);
-    ui->fromDateEdit->setDate(travelagency.booking[stelleImVektor]->getFromQDate());
+    ui->fromDateEdit->setDate(travelagency.allBookings[stelleImVektor]->getFromQDate());
     ui->fromDateEdit->setEnabled(true);
-    ui->toDateEdit->setDate(travelagency.booking[stelleImVektor]->getToQdate());
+    ui->toDateEdit->setDate(travelagency.allBookings[stelleImVektor]->getToQdate());
     ui->toDateEdit->setEnabled(true);
-    ui->priceSpinBox->setValue(travelagency.booking[stelleImVektor]->getPrice());
+    ui->priceSpinBox->setValue(travelagency.allBookings[stelleImVektor]->getPrice());
     ui->priceSpinBox->setEnabled(true);
     if(info.split(' ')[0] == "Flugbuchung"){
         ui->fromDestinationLineEdit->setEnabled(true);
@@ -123,9 +123,9 @@ void UpAndAway::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
         ui->hotelLineEdit->setText("");
         ui->townLineEdit->setEnabled(false);
         ui->townLineEdit->setText("");
-        ui->fromDestinationLineEdit->setText(QString::fromStdString(dynamic_cast<FlightBooking*>(travelagency.booking[stelleImVektor])->getFromDestination()));
-        ui->toDestinationLineEdit->setText(QString::fromStdString(dynamic_cast<FlightBooking*>(travelagency.booking[stelleImVektor])->getToDestination()));
-        ui->companyLineEdit->setText(QString::fromStdString(dynamic_cast<FlightBooking*>(travelagency.booking[stelleImVektor])->getAirline()));
+        ui->fromDestinationLineEdit->setText(QString::fromStdString(dynamic_cast<FlightBooking*>(travelagency.allBookings[stelleImVektor])->getFromDestination()));
+        ui->toDestinationLineEdit->setText(QString::fromStdString(dynamic_cast<FlightBooking*>(travelagency.allBookings[stelleImVektor])->getToDestination()));
+        ui->companyLineEdit->setText(QString::fromStdString(dynamic_cast<FlightBooking*>(travelagency.allBookings[stelleImVektor])->getAirline()));
     }else if(info.split(' ')[0]== "Mietwagenreservierung"){
         ui->fromDestinationLineEdit->setEnabled(false);
         ui->fromDestinationLineEdit->setText("");
@@ -138,9 +138,9 @@ void UpAndAway::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
         ui->hotelLineEdit->setText("");
         ui->townLineEdit->setEnabled(false);
         ui->townLineEdit->setText("");
-        ui->pickupStationLineEdit->setText(QString::fromStdString(dynamic_cast<RentalCarReservation*>(travelagency.booking[stelleImVektor])->getPickupLocation()));
-        ui->returnStationLineEdit->setText(QString::fromStdString(dynamic_cast<RentalCarReservation*>(travelagency.booking[stelleImVektor])->getReturnLocation()));
-        ui->companyLineEdit->setText(QString::fromStdString(dynamic_cast<RentalCarReservation*>(travelagency.booking[stelleImVektor])->getCompany()));
+        ui->pickupStationLineEdit->setText(QString::fromStdString(dynamic_cast<RentalCarReservation*>(travelagency.allBookings[stelleImVektor])->getPickupLocation()));
+        ui->returnStationLineEdit->setText(QString::fromStdString(dynamic_cast<RentalCarReservation*>(travelagency.allBookings[stelleImVektor])->getReturnLocation()));
+        ui->companyLineEdit->setText(QString::fromStdString(dynamic_cast<RentalCarReservation*>(travelagency.allBookings[stelleImVektor])->getCompany()));
     }else if(info.split(' ')[0] == "Hotelreservierung"){
         ui->fromDestinationLineEdit->setEnabled(false);
         ui->fromDestinationLineEdit->setText("");
@@ -154,8 +154,8 @@ void UpAndAway::on_listWidget_itemDoubleClicked(QListWidgetItem *item)
         ui->returnStationLineEdit->setText("");
         ui->hotelLineEdit->setEnabled(true);
         ui->townLineEdit->setEnabled(true);
-        ui->hotelLineEdit->setText(QString::fromStdString(dynamic_cast<HotelBooking*>(travelagency.booking[stelleImVektor])->getHotel()));
-        ui->townLineEdit->setText(QString::fromStdString(dynamic_cast<HotelBooking*>(travelagency.booking[stelleImVektor])->getTown()));
+        ui->hotelLineEdit->setText(QString::fromStdString(dynamic_cast<HotelBooking*>(travelagency.allBookings[stelleImVektor])->getHotel()));
+        ui->townLineEdit->setText(QString::fromStdString(dynamic_cast<HotelBooking*>(travelagency.allBookings[stelleImVektor])->getTown()));
     }
     ui->idInputSpinBox->setValue(id);
 }
@@ -170,11 +170,11 @@ void UpAndAway::on_JSONErstellenButton_clicked()
 
 void UpAndAway::on_fromDateEdit_userDateChanged(const QDate &date)
 {
-    travelagency.booking[selectedBookingVectorLocation]->setFromQDate(date);
+    travelagency.allBookings[selectedBookingVectorLocation]->setFromQDate(date);
     //Widgetliste aktualisieren
 
     ////position in Widgetliste == position im Vektor
-    ui->listWidget->item(selectedBookingVectorLocation)->setText(QString::fromStdString(travelagency.booking[selectedBookingVectorLocation]->showDetails()));
+    ui->listWidget->item(selectedBookingVectorLocation)->setText(QString::fromStdString(travelagency.allBookings[selectedBookingVectorLocation]->showDetails()));
 
     //Attributliste aktualisieren
 
@@ -184,11 +184,11 @@ void UpAndAway::on_fromDateEdit_userDateChanged(const QDate &date)
 
 void UpAndAway::on_toDateEdit_userDateChanged(const QDate &date)
 {
-    travelagency.booking[selectedBookingVectorLocation]->settoQDate(date);
+    travelagency.allBookings[selectedBookingVectorLocation]->settoQDate(date);
     //Widgetliste aktualisieren
 
     ////position in Widgetliste == position im Vektor
-    ui->listWidget->item(selectedBookingVectorLocation)->setText(QString::fromStdString(travelagency.booking[selectedBookingVectorLocation]->showDetails()));
+    ui->listWidget->item(selectedBookingVectorLocation)->setText(QString::fromStdString(travelagency.allBookings[selectedBookingVectorLocation]->showDetails()));
 
     //Attributliste aktualisieren
 
@@ -198,11 +198,11 @@ void UpAndAway::on_toDateEdit_userDateChanged(const QDate &date)
 
 void UpAndAway::on_priceSpinBox_valueChanged(double arg1)
 {
-    travelagency.booking[selectedBookingVectorLocation]->setPrice(arg1);
+    travelagency.allBookings[selectedBookingVectorLocation]->setPrice(arg1);
     //Widgetliste aktualisieren
 
     ////position in Widgetliste == position im Vektor
-    ui->listWidget->item(selectedBookingVectorLocation)->setText(QString::fromStdString(travelagency.booking[selectedBookingVectorLocation]->showDetails()));
+    ui->listWidget->item(selectedBookingVectorLocation)->setText(QString::fromStdString(travelagency.allBookings[selectedBookingVectorLocation]->showDetails()));
 
     //Attributliste aktualisieren
     on_idInputSpinBox_valueChanged(selectedId);
@@ -210,11 +210,11 @@ void UpAndAway::on_priceSpinBox_valueChanged(double arg1)
 
 void UpAndAway::on_fromDestinationLineEdit_textEdited(const QString &arg1)
 {
-    dynamic_cast<FlightBooking*>(travelagency.booking[selectedBookingVectorLocation])->setFromDestination(arg1.toStdString());
+    dynamic_cast<FlightBooking*>(travelagency.allBookings[selectedBookingVectorLocation])->setFromDestination(arg1.toStdString());
     //Widgetliste aktualisieren
 
     ////position in Widgetliste == position im Vektor
-    ui->listWidget->item(selectedBookingVectorLocation)->setText(QString::fromStdString(travelagency.booking[selectedBookingVectorLocation]->showDetails()));
+    ui->listWidget->item(selectedBookingVectorLocation)->setText(QString::fromStdString(travelagency.allBookings[selectedBookingVectorLocation]->showDetails()));
 
     //Attributliste aktualisieren
 
@@ -224,11 +224,11 @@ void UpAndAway::on_fromDestinationLineEdit_textEdited(const QString &arg1)
 
 void UpAndAway::on_toDestinationLineEdit_textEdited(const QString &arg1)
 {
-    dynamic_cast<FlightBooking*>(travelagency.booking[selectedBookingVectorLocation])->setToDestination(arg1.toStdString());
+    dynamic_cast<FlightBooking*>(travelagency.allBookings[selectedBookingVectorLocation])->setToDestination(arg1.toStdString());
     //Widgetliste aktualisieren
 
     ////position in Widgetliste == position im Vektor
-    ui->listWidget->item(selectedBookingVectorLocation)->setText(QString::fromStdString(travelagency.booking[selectedBookingVectorLocation]->showDetails()));
+    ui->listWidget->item(selectedBookingVectorLocation)->setText(QString::fromStdString(travelagency.allBookings[selectedBookingVectorLocation]->showDetails()));
 
     //Attributliste aktualisieren
 
@@ -238,15 +238,15 @@ void UpAndAway::on_toDestinationLineEdit_textEdited(const QString &arg1)
 
 void UpAndAway::on_companyLineEdit_textEdited(const QString &arg1)
 {
-    if(typeid(FlightBooking) == typeid(*(travelagency.booking[selectedBookingVectorLocation]))){
-        dynamic_cast<FlightBooking*>(travelagency.booking[selectedBookingVectorLocation])->setAirline(arg1.toStdString());
-    }else if(typeid(RentalCarReservation) == typeid(*(travelagency.booking[selectedBookingVectorLocation]))){
-        dynamic_cast<RentalCarReservation*>(travelagency.booking[selectedBookingVectorLocation])->setCompany(arg1.toStdString());
+    if(typeid(FlightBooking) == typeid(*(travelagency.allBookings[selectedBookingVectorLocation]))){
+        dynamic_cast<FlightBooking*>(travelagency.allBookings[selectedBookingVectorLocation])->setAirline(arg1.toStdString());
+    }else if(typeid(RentalCarReservation) == typeid(*(travelagency.allBookings[selectedBookingVectorLocation]))){
+        dynamic_cast<RentalCarReservation*>(travelagency.allBookings[selectedBookingVectorLocation])->setCompany(arg1.toStdString());
     }
     //Widgetliste aktualisieren
 
     ////position in Widgetliste == position im Vektor
-    ui->listWidget->item(selectedBookingVectorLocation)->setText(QString::fromStdString(travelagency.booking[selectedBookingVectorLocation]->showDetails()));
+    ui->listWidget->item(selectedBookingVectorLocation)->setText(QString::fromStdString(travelagency.allBookings[selectedBookingVectorLocation]->showDetails()));
 
     //Attributliste aktualisieren
 
@@ -256,11 +256,11 @@ void UpAndAway::on_companyLineEdit_textEdited(const QString &arg1)
 
 void UpAndAway::on_hotelLineEdit_textEdited(const QString &arg1)
 {
-    dynamic_cast<HotelBooking*>(travelagency.booking[selectedBookingVectorLocation])->setHotel(arg1.toStdString());
+    dynamic_cast<HotelBooking*>(travelagency.allBookings[selectedBookingVectorLocation])->setHotel(arg1.toStdString());
     //Widgetliste aktualisieren
 
     ////position in Widgetliste == position im Vektor
-    ui->listWidget->item(selectedBookingVectorLocation)->setText(QString::fromStdString(travelagency.booking[selectedBookingVectorLocation]->showDetails()));
+    ui->listWidget->item(selectedBookingVectorLocation)->setText(QString::fromStdString(travelagency.allBookings[selectedBookingVectorLocation]->showDetails()));
 
     //Attributliste aktualisieren
 
@@ -270,11 +270,11 @@ void UpAndAway::on_hotelLineEdit_textEdited(const QString &arg1)
 
 void UpAndAway::on_townLineEdit_textEdited(const QString &arg1)
 {
-    dynamic_cast<HotelBooking*>(travelagency.booking[selectedBookingVectorLocation])->setTown(arg1.toStdString());
+    dynamic_cast<HotelBooking*>(travelagency.allBookings[selectedBookingVectorLocation])->setTown(arg1.toStdString());
     //Widgetliste aktualisieren
 
     ////position in Widgetliste == position im Vektor
-    ui->listWidget->item(selectedBookingVectorLocation)->setText(QString::fromStdString(travelagency.booking[selectedBookingVectorLocation]->showDetails()));
+    ui->listWidget->item(selectedBookingVectorLocation)->setText(QString::fromStdString(travelagency.allBookings[selectedBookingVectorLocation]->showDetails()));
 
     //Attributliste aktualisieren
 
@@ -284,11 +284,11 @@ void UpAndAway::on_townLineEdit_textEdited(const QString &arg1)
 
 void UpAndAway::on_pickupStationLineEdit_textEdited(const QString &arg1)
 {
-    dynamic_cast<RentalCarReservation*>(travelagency.booking[selectedBookingVectorLocation])->setPickupLocation(arg1.toStdString());
+    dynamic_cast<RentalCarReservation*>(travelagency.allBookings[selectedBookingVectorLocation])->setPickupLocation(arg1.toStdString());
     //Widgetliste aktualisieren
 
     ////position in Widgetliste == position im Vektor
-    ui->listWidget->item(selectedBookingVectorLocation)->setText(QString::fromStdString(travelagency.booking[selectedBookingVectorLocation]->showDetails()));
+    ui->listWidget->item(selectedBookingVectorLocation)->setText(QString::fromStdString(travelagency.allBookings[selectedBookingVectorLocation]->showDetails()));
 
     //Attributliste aktualisieren
 
@@ -298,11 +298,11 @@ void UpAndAway::on_pickupStationLineEdit_textEdited(const QString &arg1)
 
 void UpAndAway::on_returnStationLineEdit_textEdited(const QString &arg1)
 {
-    dynamic_cast<RentalCarReservation*>(travelagency.booking[selectedBookingVectorLocation])->setReturnLocation(arg1.toStdString());
+    dynamic_cast<RentalCarReservation*>(travelagency.allBookings[selectedBookingVectorLocation])->setReturnLocation(arg1.toStdString());
     //Widgetliste aktualisieren
 
     ////position in Widgetliste == position im Vektor
-    ui->listWidget->item(selectedBookingVectorLocation)->setText(QString::fromStdString(travelagency.booking[selectedBookingVectorLocation]->showDetails()));
+    ui->listWidget->item(selectedBookingVectorLocation)->setText(QString::fromStdString(travelagency.allBookings[selectedBookingVectorLocation]->showDetails()));
 
     //Attributliste aktualisieren
 
