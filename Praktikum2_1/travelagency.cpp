@@ -77,7 +77,8 @@ bool TravelAgency::readfile(QString fileName, QWidget *window)
             }
             int i = 0, id = 0;
             double price = 0.0;
-            string idString, priceString, fromDate, toDate, fromDestination, toDestination, airline;
+            string idString, priceString, fromDate, toDate, travelIdString, customerIdString, customerName,
+                    fromDestination, toDestination, airline;
             //todo
             while (!zeileStringStream.eof()) {
                 switch (i) {
@@ -89,11 +90,17 @@ bool TravelAgency::readfile(QString fileName, QWidget *window)
                     break;
                 case 3: getline(zeileStringStream, toDate, '|');
                     break;
-                case 4: getline(zeileStringStream, fromDestination, '|');
+                case 4: getline(zeileStringStream, travelIdString, '|');
                     break;
-                case 5: getline(zeileStringStream, toDestination, '|');
+                case 5: getline(zeileStringStream, customerIdString, '|');
                     break;
-                case 6: getline(zeileStringStream, airline, '|');
+                case 6: getline(zeileStringStream, customerName, '|');
+                    break;
+                case 7: getline(zeileStringStream, fromDestination, '|');
+                    break;
+                case 8: getline(zeileStringStream, toDestination, '|');
+                    break;
+                case 9: getline(zeileStringStream, airline, '|');
                     break;
                 default: {
                     char c = ' ';
@@ -156,7 +163,8 @@ bool TravelAgency::readfile(QString fileName, QWidget *window)
             }
             int i = 0, id = 0;
             double price = 0.0;
-            string idString, priceString, fromDate, toDate, pickupLocation, returnLocation, company;
+            string idString, priceString, fromDate, toDate, travelIdString, customerIdString, customerName,
+                    pickupLocation, returnLocation, company;
             //todo
             while (!zeileStringStream.eof()) {
                 switch (i) {
@@ -168,11 +176,17 @@ bool TravelAgency::readfile(QString fileName, QWidget *window)
                     break;
                 case 3: getline(zeileStringStream, toDate, '|');
                     break;
-                case 4: getline(zeileStringStream, pickupLocation, '|');
+                case 4: getline(zeileStringStream, travelIdString, '|');
                     break;
-                case 5: getline(zeileStringStream, returnLocation, '|');
+                case 5: getline(zeileStringStream, customerIdString, '|');
                     break;
-                case 6: getline(zeileStringStream, company, '|');
+                case 6: getline(zeileStringStream, customerName, '|');
+                    break;
+                case 7: getline(zeileStringStream, pickupLocation, '|');
+                    break;
+                case 8: getline(zeileStringStream, returnLocation, '|');
+                    break;
+                case 9: getline(zeileStringStream, company, '|');
                     break;
                 default: {
                     ////PRÜFUNG NUMERISCHER WERT:
@@ -200,6 +214,15 @@ bool TravelAgency::readfile(QString fileName, QWidget *window)
                     new RentalCarReservation(id, price, QString::fromStdString(fromDate), QString::fromStdString(toDate), QString::fromStdString(pickupLocation),
                                              QString::fromStdString(returnLocation), QString::fromStdString(company));
             allBookings.push_back(rentalCarReservation);
+
+            long customerId = stol(customerIdString), travelId = stol(travelIdString);
+            Customer* customer = new Customer(customerId, QString::fromStdString(customerName));
+            Travel* travel = new Travel(travelId, customerId);
+            travel->addBooking(rentalCarReservation);
+            customer->addTravel(travel);
+            allTravels.push_back(travel);
+            allCustomers.push_back(customer);
+
             rentalCarImportCount++;
             totalRentalCarCost += price;
 
@@ -227,7 +250,8 @@ bool TravelAgency::readfile(QString fileName, QWidget *window)
 
             int i = 0, id = 0;
             double price = 0.0;
-            string idString, priceString, fromDate, toDate, hotel, town;
+            string idString, priceString, fromDate, toDate, travelIdString, customerIdString, customerName,
+                    hotel, town;
             //todo
             while (!zeileStringStream.eof()) {
                 switch (i) {
@@ -239,9 +263,15 @@ bool TravelAgency::readfile(QString fileName, QWidget *window)
                     break;
                 case 3: getline(zeileStringStream, toDate, '|');
                     break;
-                case 4: getline(zeileStringStream, hotel, '|');
+                case 4: getline(zeileStringStream, travelIdString, '|');
                     break;
-                case 5: getline(zeileStringStream, town, '|');
+                case 5: getline(zeileStringStream, customerIdString, '|');
+                    break;
+                case 6: getline(zeileStringStream, customerName, '|');
+                    break;
+                case 7: getline(zeileStringStream, hotel, '|');
+                    break;
+                case 8: getline(zeileStringStream, town, '|');
                     break;
                 default: {
                     char c = ' ';

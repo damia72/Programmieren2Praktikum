@@ -1,4 +1,3 @@
-
 #include <QListWidgetItem>
 #include "flightbooking.h"
 #include "upandaway.h"
