@@ -14,7 +14,7 @@
 
 - [ ] UI Elemente ordentlich Designen
 
-- [ ] Klassendiagramm nachbauen
+- [X] Klassendiagramm nachbauen
 
 - [ ] UI von der Logik trennen
 
@@ -26,6 +26,6 @@
 
 # Aufräumarbeiten
 
-- [ ] Alle klassen auf QTKlassen umstellen (bspw String auf Qstring) 
+- [X] Alle klassen auf QTKlassen umstellen (bspw String auf Qstring) 
 
 - [ ] Datum von string auf QDate umstellen und nicht mehr mit dem String arbeiten
