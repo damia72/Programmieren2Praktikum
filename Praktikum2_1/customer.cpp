@@ -14,3 +14,8 @@ long Customer::getId() const
 {
     return id;
 }
+
+QString Customer::showDetails()
+{
+
+}
