@@ -19,9 +19,10 @@ public:
     std::vector<Booking*> allBookings;
     int suche(int zuSuchendeId);
     void cleanBookings();
+    QStringList bookingAusfuellen(std::stringstream &textStream);
 private:
 
-
+    void spaltenPruefung(std::string testString, int spaltenanzahl, int aktuelleZeile);
     bool sindDasZahlen(QString testString);
     QString datumFormatieren(QString datum);
 };

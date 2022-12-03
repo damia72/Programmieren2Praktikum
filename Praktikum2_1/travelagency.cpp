@@ -228,58 +228,22 @@ bool TravelAgency::readfile(QString fileName, QWidget *window)
 
         }
         else if(typErkennung == 'H'){
-
-            string testString = zeileStringStream.str();
-            int spaltenCounter = 0;
-
-            ////Prüfung spalten:
-
-            for(unsigned int i = 0; i < testString.length(); i++){
-                if (testString[i] == '|'){
-                    spaltenCounter++;
-                }
-            }
-            if (spaltenCounter!=5){
-                if(spaltenCounter < 5){
-                    throw runtime_error("Fehler: zu wenig Spalten in Zeile " + to_string(aktuelleZeile) + ".\n");
-                }
-                if(spaltenCounter > 5){
-                    throw runtime_error("Fehler: zu viele Spalten in Zeile " + to_string(aktuelleZeile) + ".\n");
-                }
-            }
-
+            spaltenPruefung(zeileStringStream.str(), 5, aktuelleZeile);
             int i = 0, id = 0;
             double price = 0.0;
-            string idString, priceString, fromDate, toDate, travelIdString, customerIdString, customerName,
-                    hotel, town;
-            //todo
+            string hotel, town;
+            //Bookingspezifische attribute werden in einer QStringlist mit der Reihenfolge wie im Dokument abgespeichert:
+            QStringList attributListe = bookingAusfuellen(zeileStringStream);
             while (!zeileStringStream.eof()) {
                 switch (i) {
-                case 0: getline(zeileStringStream, idString, '|');
+                case 1: getline(zeileStringStream, hotel, '|');
                     break;
-                case 1: getline(zeileStringStream, priceString, '|');
-                    break;
-                case 2: getline(zeileStringStream, fromDate, '|');
-                    break;
-                case 3: getline(zeileStringStream, toDate, '|');
-                    break;
-                case 4: getline(zeileStringStream, travelIdString, '|');
-                    break;
-                case 5: getline(zeileStringStream, customerIdString, '|');
-                    break;
-                case 6: getline(zeileStringStream, customerName, '|');
-                    break;
-                case 7: getline(zeileStringStream, hotel, '|');
-                    break;
-                case 8: getline(zeileStringStream, town, '|');
+                case 2: getline(zeileStringStream, town, '|');
                     break;
                 default: {
                     char c = ' ';
                     zeileStringStream.get(c);
-                    if(c == '|'){
-                        qDebug() << "Fehler: Zeile " << aktuelleZeile << " Zu viele Spalten";
-                    }
-                    else if (c != '\n'){
+                    if (c != '\n'){
                         qDebug() << "Fehler: Zeile " << aktuelleZeile << " Unerwartetes Zeichen";
                     }
                 };
@@ -287,25 +251,36 @@ bool TravelAgency::readfile(QString fileName, QWidget *window)
                 }
                 i++;
             }
-            id = stoi(idString);
+            id = attributListe[0].toInt();
             ////PRÜFUNG NUMERISCHER WERT:
-            if(!sindDasZahlen(QString::fromStdString(priceString))){
+            if(!sindDasZahlen(QString::fromStdString(attributListe[1].toStdString()))){
                 throw runtime_error("Fehler: Wert ist nicht numerisch in Zeile" + to_string(aktuelleZeile) + "\n");
             }
-            price = stod(priceString);
+            price = attributListe[1].toDouble();
 
             //price = stod(priceString);
             HotelBooking* hotelBooking =
-                    new HotelBooking(id, price, QString::fromStdString(fromDate), QString::fromStdString(toDate), QString::fromStdString(hotel),
+                    new HotelBooking(id, price, attributListe[2], attributListe[3], QString::fromStdString(hotel),
                                      QString::fromStdString(town));
             allBookings.push_back(hotelBooking);
+
+            //Customer und Travel werden angelegt
+            ////TODO: Customer durchgehen, wenn da, dann reise beim bestehenden customer hinzufügen, wenn nicht: neuer travel
+            /// im Customer nach travels suchen, wenn da, dann  buchung beim bestehenden travel hinzufügen, wenn nicht: neuer travel
+            Customer* customer = new Customer(attributListe[5].toLong(), attributListe[6]);
+            Travel* travel = new Travel(attributListe[4].toLong(), attributListe[5].toLong());
+            travel->addBooking(hotelBooking);
+            customer->addTravel(travel);
+            allTravels.push_back(travel);
+            allCustomers.push_back(customer);
+
             hotelImportCount++;
             totalHotelImportCost += price;
         }
         aktuelleZeile++;
 
     }
-    QMessageBox::about(window, "Dateie erfolgreich eingelesen", "Es wurden " + QString::number(flightImportCount) +
+    QMessageBox::about(window, "Dateien erfolgreich eingelesen", "Es wurden " + QString::number(flightImportCount) +
                        " Fugbuchungen im Wert von " + QString::number(totalFlightCost, 'f', 2) + " €, " +
                        QString::number(rentalCarImportCount) + " Mietwagenbuchungen im Wert von " + QString::number(totalRentalCarCost, 'f', 2)
                        + " € und " + QString::number(hotelImportCount) +
@@ -360,6 +335,36 @@ bool TravelAgency::createJSON(QString fileName)
     return true;
 }
 
+Booking *TravelAgency::findBooking(long id)
+{
+    for(unsigned int i = 0; i < this->allBookings.size(); i++){
+        if (allBookings[i]->getId() == id){
+            return allBookings[i];
+        }
+    }
+    return nullptr;
+}
+
+Travel *TravelAgency::findTravel(long id)
+{
+    for(unsigned int i = 0; i < this->allTravels.size(); i++){
+        if (allTravels[i]->getId() == id){
+            return allTravels[i];
+        }
+    }
+    return nullptr;
+}
+
+Customer *TravelAgency::findCustomer(long id)
+{
+    for(unsigned int i = 0; i < this->allCustomers.size(); i++){
+        if (allCustomers[i]->getId() == id){
+            return allCustomers[i];
+        }
+    }
+    return nullptr;
+}
+
 int TravelAgency::suche(int zuSuchendeId)
 {
 for(unsigned int i = 0; i < allBookings.size(); i++){
@@ -384,6 +389,49 @@ void TravelAgency::cleanBookings()
     allBookings.clear();
 }
 
+QStringList TravelAgency::bookingAusfuellen(stringstream &textStream)
+{
+    string idString, priceString, fromDate, toDate, travelIdString, customerIdString, customerName;
+    for(int i = 0; i < 6; i++){
+        switch(i){
+        case 0: getline(textStream, idString, '|');
+            break;
+        case 1: getline(textStream, priceString, '|');
+            break;
+        case 2: getline(textStream, fromDate, '|');
+            break;
+        case 3: getline(textStream, toDate, '|');
+            break;
+        case 4: getline(textStream, travelIdString, '|');
+            break;
+        case 5: getline(textStream, customerIdString, '|');
+            break;
+        case 6: getline(textStream, customerName, '|');
+            break;
+        }
+    }
+    QStringList bookingAtributes = {QString::fromStdString(idString), QString::fromStdString(priceString),QString::fromStdString(fromDate)
+                           ,QString::fromStdString(toDate),QString::fromStdString(travelIdString),QString::fromStdString(customerIdString)
+                           ,QString::fromStdString(customerName)};
+    return bookingAtributes;
+}
+
+void TravelAgency::spaltenPruefung(std::string testString, int spaltenanzahl, int aktuelleZeile)
+{
+    int spaltencounter = 0;
+    for(unsigned int i = 0; i < testString.length(); i++){
+        if(testString[i] == '|'){
+            spaltencounter++;
+        }
+    }
+    if(spaltencounter < spaltenanzahl){
+        throw runtime_error("Fehler: Zu viele Spalten in Zeile" + to_string(aktuelleZeile)+"\n");
+    }
+    if(spaltencounter > spaltenanzahl){
+        throw runtime_error("Fehler: Zu wenig Spalten"+ to_string(aktuelleZeile)+"\n");
+    }
+}
+
 bool TravelAgency::sindDasZahlen(QString testString)
 {
     for (unsigned int i = 0; i<testString.length(); i++){
@@ -391,7 +439,13 @@ bool TravelAgency::sindDasZahlen(QString testString)
             return false;
         }
     }
+
     return true;
+}
+
+void TravelAgency::sindDasZahlen(QString testString, int aktuelleZeile)
+{
+
 }
 
 QString TravelAgency::datumFormatieren(QString datum)

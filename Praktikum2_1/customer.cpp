@@ -9,3 +9,8 @@ void Customer::addTravel(Travel *travel)
 {
     travelList.push_back(travel);
 }
+
+long Customer::getId() const
+{
+    return id;
+}
