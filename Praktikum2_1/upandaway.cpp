@@ -310,7 +310,7 @@ void UpAndAway::on_returnStationLineEdit_textEdited(const QString &arg1)
 
 void UpAndAway::cleanEverything()
 {
-    travelagency.cleanBookings();
+    travelagency.cleanEverything();
     ui->listWidget->clear();
     ui->textBrowser->clear();
     ui->spinBox->setEnabled(false);

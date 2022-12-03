@@ -17,14 +17,18 @@ public:
     std::vector<Customer*> allCustomers;
     std::vector<Travel*> allTravels;
     std::vector<Booking*> allBookings;
-    int suche(int zuSuchendeId);
-    void cleanBookings();
+    int suche(int zuSuchendeId);    
+    void cleanEverything();
     QStringList bookingAusfuellen(std::stringstream &textStream);
 private:
-
+    void cleanBookings();
+    void cleanTravels();
+    void cleanCustomers();
     void spaltenPruefung(std::string testString, int spaltenanzahl, int aktuelleZeile);
-    bool sindDasZahlen(QString testString);
+    void pruefungNumerischerWert(QString testString, int aktuelleZeile);
     QString datumFormatieren(QString datum);
+    enum Attribute : unsigned int{AttributeBookingId, AttributePrice, AttributeFromDate, AttributeToDate, AttributeTravelId,
+                                  AttributeCustomerId, AttributeName};
 };
 
 #endif // TRAVELAGENCY_H

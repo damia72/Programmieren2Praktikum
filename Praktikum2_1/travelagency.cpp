@@ -21,7 +21,7 @@ TravelAgency::TravelAgency()
 
 TravelAgency::~TravelAgency()
 {
-    cleanBookings();
+    cleanEverything();
 }
 
 bool TravelAgency::readfile(QString fileName, QWidget *window)
@@ -117,7 +117,7 @@ bool TravelAgency::readfile(QString fileName, QWidget *window)
             }
             id = stoi(idString);
             ////PRÜFUNG NUMERISCHER WERT:
-            if(!sindDasZahlen(QString::fromStdString(priceString))){
+            if(!pruefungNumerischerWert(QString::fromStdString(priceString))){
                 throw runtime_error("Fehler: Wert ist nicht numerisch in Zeile" + to_string(aktuelleZeile) + "\n");
             }
 
@@ -190,7 +190,7 @@ bool TravelAgency::readfile(QString fileName, QWidget *window)
                     break;
                 default: {
                     ////PRÜFUNG NUMERISCHER WERT:
-                    if(!sindDasZahlen(QString::fromStdString(priceString))){
+                    if(!pruefungNumerischerWert(QString::fromStdString(priceString))){
                         throw runtime_error("Fehler: Wert ist nicht numerisch in Zeile" + to_string(aktuelleZeile) + "\n");
                     }
                     price = stod(priceString);
@@ -232,7 +232,7 @@ bool TravelAgency::readfile(QString fileName, QWidget *window)
             int i = 0, id = 0;
             double price = 0.0;
             string hotel, town;
-            //Bookingspezifische attribute werden in einer QStringlist mit der Reihenfolge wie im Dokument abgespeichert:
+            //Bookingspezifische attribute werden in einer QStringlist mit der Reihenfolge wie in Datei abgespeichert:
             QStringList attributListe = bookingAusfuellen(zeileStringStream);
             while (!zeileStringStream.eof()) {
                 switch (i) {
@@ -251,29 +251,34 @@ bool TravelAgency::readfile(QString fileName, QWidget *window)
                 }
                 i++;
             }
-            id = attributListe[0].toInt();
-            ////PRÜFUNG NUMERISCHER WERT:
-            if(!sindDasZahlen(QString::fromStdString(attributListe[1].toStdString()))){
-                throw runtime_error("Fehler: Wert ist nicht numerisch in Zeile" + to_string(aktuelleZeile) + "\n");
-            }
-            price = attributListe[1].toDouble();
-
-            //price = stod(priceString);
+            id = attributListe[AttributeBookingId].toInt();
+            pruefungNumerischerWert(attributListe[AttributePrice], aktuelleZeile);
+            price = attributListe[AttributePrice].toDouble();
             HotelBooking* hotelBooking =
-                    new HotelBooking(id, price, attributListe[2], attributListe[3], QString::fromStdString(hotel),
+                    new HotelBooking(id, price, attributListe[AttributeFromDate], attributListe[AttributeToDate], QString::fromStdString(hotel),
                                      QString::fromStdString(town));
             allBookings.push_back(hotelBooking);
-
-            //Customer und Travel werden angelegt
-            ////TODO: Customer durchgehen, wenn da, dann reise beim bestehenden customer hinzufügen, wenn nicht: neuer travel
-            /// im Customer nach travels suchen, wenn da, dann  buchung beim bestehenden travel hinzufügen, wenn nicht: neuer travel
-            Customer* customer = new Customer(attributListe[5].toLong(), attributListe[6]);
-            Travel* travel = new Travel(attributListe[4].toLong(), attributListe[5].toLong());
-            travel->addBooking(hotelBooking);
-            customer->addTravel(travel);
-            allTravels.push_back(travel);
-            allCustomers.push_back(customer);
-
+            if(findTravel(attributListe[AttributeTravelId].toLong()) != nullptr){
+                findTravel(attributListe[AttributeTravelId].toLong())->addBooking(hotelBooking);
+                if(findCustomer(attributListe[AttributeCustomerId].toLong()) != nullptr){
+                    findCustomer(attributListe[AttributeCustomerId].toLong())->addTravel(findTravel(attributListe[AttributeTravelId].toLong()));
+                }else{
+                    Customer* customer = new Customer(attributListe[AttributeCustomerId].toLong(), attributListe[AttributeName]);
+                    customer->addTravel(findTravel(attributListe[AttributeTravelId].toLong()));
+                    allCustomers.push_back(customer);
+                }
+            }else{
+                Travel* travel = new Travel(attributListe[AttributeTravelId].toLong(), attributListe[AttributeCustomerId].toLong());
+                travel->addBooking(hotelBooking);
+                if(findCustomer(attributListe[AttributeCustomerId].toLong()) != nullptr){
+                    findCustomer(attributListe[AttributeCustomerId].toLong())->addTravel(travel);
+                }else{
+                    Customer* customer = new Customer(attributListe[AttributeCustomerId].toLong(), attributListe[AttributeName]);
+                    customer->addTravel(travel);
+                    allCustomers.push_back(customer);
+                }
+                allTravels.push_back(travel);
+            }
             hotelImportCount++;
             totalHotelImportCost += price;
         }
@@ -285,7 +290,8 @@ bool TravelAgency::readfile(QString fileName, QWidget *window)
                        QString::number(rentalCarImportCount) + " Mietwagenbuchungen im Wert von " + QString::number(totalRentalCarCost, 'f', 2)
                        + " € und " + QString::number(hotelImportCount) +
                        " Hotelreservierungen im Wert von " +
-                       QString::number(totalHotelImportCost, 'f', 2) + " € angelegt.\n");
+                       QString::number(totalHotelImportCost, 'f', 2) + " € angelegt." + " Gesamtwert: " +
+                       QString::number(totalRentalCarCost + totalFlightCost + totalHotelImportCost) + ".\n");
     return true;
 }
 bool TravelAgency::createJSON(QString fileName)
@@ -389,6 +395,35 @@ void TravelAgency::cleanBookings()
     allBookings.clear();
 }
 
+void TravelAgency::cleanTravels()
+{
+    if(allTravels.size() == 0){
+        return;
+    }
+    for(unsigned int i = 0; i < allTravels.size();i++){
+        delete this->allTravels[i];
+    }
+    allTravels.clear();
+}
+
+void TravelAgency::cleanCustomers()
+{
+    if(allCustomers.size() == 0){
+        return;
+    }
+    for(unsigned int i = 0; i < allCustomers.size();i++){
+        delete this->allCustomers[i];
+    }
+    allCustomers.clear();
+}
+
+void TravelAgency::cleanEverything()
+{
+    cleanBookings();
+    cleanTravels();
+    cleanCustomers();
+}
+
 QStringList TravelAgency::bookingAusfuellen(stringstream &textStream)
 {
     string idString, priceString, fromDate, toDate, travelIdString, customerIdString, customerName;
@@ -432,20 +467,13 @@ void TravelAgency::spaltenPruefung(std::string testString, int spaltenanzahl, in
     }
 }
 
-bool TravelAgency::sindDasZahlen(QString testString)
+void TravelAgency::pruefungNumerischerWert(QString testString, int aktuelleZeile)
 {
     for (unsigned int i = 0; i<testString.length(); i++){
         if(!((testString[i] >= '0' && testString[i] <= '9')||testString[i] == '.')){
-            return false;
+            throw runtime_error("Fehler: Wert ist nicht numerisch in Zeile" + to_string(aktuelleZeile) + "\n");
         }
     }
-
-    return true;
-}
-
-void TravelAgency::sindDasZahlen(QString testString, int aktuelleZeile)
-{
-
 }
 
 QString TravelAgency::datumFormatieren(QString datum)
