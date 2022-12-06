@@ -9,7 +9,7 @@ public:
     Customer(long id, QString name);
     void addTravel(Travel* travel);
     long getId() const;
-
+    QString showDetails();
 private:
     long id;
     QString name;

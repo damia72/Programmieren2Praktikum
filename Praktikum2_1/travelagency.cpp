@@ -249,7 +249,7 @@ bool TravelAgency::readfile(QString fileName, QWidget *window)
                        + " € und " + QString::number(hotelImportCount) +
                        " Hotelreservierungen im Wert von " +
                        QString::number(totalHotelImportCost, 'f', 2) + " € angelegt." + " Gesamtwert: " +
-                       QString::number(totalRentalCarCost + totalFlightCost + totalHotelImportCost) + ". Es wurden " + QString::number(travelImportCount)
+                       QString::number(totalRentalCarCost + totalFlightCost + totalHotelImportCost, 'f', 2) + "€. Es wurden " + QString::number(travelImportCount)
                        +" Reisen und " + QString::number(customerImportCount) + " Kunden angelegt.\n");
     return true;
 }

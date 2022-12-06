@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1241</width>
-    <height>450</height>
+    <height>462</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -26,16 +26,16 @@
          <item>
           <layout class="QVBoxLayout" name="verticalLayout_3">
            <item>
-            <widget class="QPushButton" name="readFileButton">
+            <widget class="QPushButton" name="JSONErstellenButton">
              <property name="text">
-              <string>Datei einlesen</string>
+              <string>JSON erstellen</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="JSONErstellenButton">
+            <widget class="QPushButton" name="readFileButton">
              <property name="text">
-              <string>JSON erstellen</string>
+              <string>Datei einlesen</string>
              </property>
             </widget>
            </item>
@@ -59,7 +59,7 @@
          </size>
         </property>
         <property name="title">
-         <string>Suche über ID</string>
+         <string>Suche über Buchungs-ID</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_5">
          <item>
@@ -71,7 +71,7 @@
             </size>
            </property>
            <property name="text">
-            <string>ID eingeben:</string>
+            <string>Buchungs-ID eingeben:</string>
            </property>
           </widget>
          </item>
@@ -127,6 +127,36 @@
        </spacer>
       </item>
      </layout>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBox_4">
+      <property name="title">
+       <string>Suche über Kunden-ID</string>
+      </property>
+      <widget class="QLabel" name="label_13">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>30</y>
+         <width>111</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Kunden-ID eingeben:</string>
+       </property>
+      </widget>
+      <widget class="QSpinBox" name="spinBox_2">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>50</y>
+         <width>121</width>
+         <height>25</height>
+        </rect>
+       </property>
+      </widget>
+     </widget>
     </item>
     <item>
      <widget class="QListWidget" name="listWidget"/>

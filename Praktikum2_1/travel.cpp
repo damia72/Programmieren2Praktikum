@@ -5,6 +5,11 @@ void Travel::addBooking(Booking *booking)
     travelBookings.push_back(booking);
 }
 
+QString Travel::showDetails()
+{
+
+}
+
 long Travel::getId() const
 {
     return id;
