@@ -25,6 +25,7 @@ UpAndAway::UpAndAway(QWidget *parent)
 UpAndAway::~UpAndAway()
 {
     delete ui;
+    //test
 }
 
 
