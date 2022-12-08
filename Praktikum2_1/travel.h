@@ -11,7 +11,7 @@ public:
     long getId() const;
 
     std::vector<Booking *> getTravelBookings() const;
-
+    QString showDetails();
     QDate findEarliestBooking();
     QDate findLatestBooking();
 private:

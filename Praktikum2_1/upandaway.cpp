@@ -13,13 +13,13 @@ UpAndAway::UpAndAway(QWidget *parent)
 {
     ui->setupUi(this);
     cleanEverything();
-    ui->travelTableWidget->setColumnWidth(0,8);
-    ui->travelTableWidget->setColumnWidth(1,60);
-    ui->travelTableWidget->setColumnWidth(2,60);
-    ui->travelBookingsTableWidget->setColumnWidth(0,8);
-    ui->travelBookingsTableWidget->setColumnWidth(1,60);
-    ui->travelBookingsTableWidget->setColumnWidth(2,60);
-    ui->travelBookingsTableWidget->setColumnWidth(3,15);
+    ui->travelTableWidget->setColumnWidth(0,12);
+    ui->travelTableWidget->setColumnWidth(1,80);
+    ui->travelTableWidget->setColumnWidth(2,80);
+    ui->travelBookingsTableWidget->setColumnWidth(0,12);
+    ui->travelBookingsTableWidget->setColumnWidth(1,80);
+    ui->travelBookingsTableWidget->setColumnWidth(2,80);
+    ui->travelBookingsTableWidget->setColumnWidth(3,22);
 }
 
 UpAndAway::~UpAndAway()

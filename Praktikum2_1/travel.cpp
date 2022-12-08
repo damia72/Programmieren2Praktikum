@@ -17,6 +17,11 @@ std::vector<Booking *> Travel::getTravelBookings() const
     return travelBookings;
 }
 
+QString Travel::showDetails()
+{
+    return "Zur reise mit der Id " + QString::number(id) + " gehören " + QString::number(travelBookings.size()) + " Buchungen.\n";
+}
+
 QDate Travel::findEarliestBooking()
 {
     //für den fall das travel keine bookings hat:
