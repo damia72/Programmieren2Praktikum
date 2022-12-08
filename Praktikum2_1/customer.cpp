@@ -17,5 +17,10 @@ long Customer::getId() const
 
 QString Customer::showDetails()
 {
-return "Der Kunde mit der id " + QString::number(id) + " und dem Namen " + name + " hat " +  QString::number(travelList.size()) + " Reisen gebucht";
+    return "Der Kunde mit der id " + QString::number(id) + " und dem Namen " + name + " hat " +  QString::number(travelList.size()) + " Reisen gebucht";
+}
+
+std::vector<Travel *> Customer::getTravelList() const
+{
+    return travelList;
 }

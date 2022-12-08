@@ -48,6 +48,12 @@ private slots:
 
     void on_returnStationLineEdit_textEdited(const QString &arg1);
 
+    void on_spinBox_2_valueChanged(int arg1);
+
+    void on_travelTableWidget_cellDoubleClicked(int row, int column);
+
+    void on_travelBookingsTableWidget_cellDoubleClicked(int row, int column);
+
 private:
     Ui::UpAndAway *ui;
     void cleanEverything();

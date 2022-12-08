@@ -13,6 +13,13 @@ UpAndAway::UpAndAway(QWidget *parent)
 {
     ui->setupUi(this);
     cleanEverything();
+    ui->travelTableWidget->setColumnWidth(0,8);
+    ui->travelTableWidget->setColumnWidth(1,60);
+    ui->travelTableWidget->setColumnWidth(2,60);
+    ui->travelBookingsTableWidget->setColumnWidth(0,8);
+    ui->travelBookingsTableWidget->setColumnWidth(1,60);
+    ui->travelBookingsTableWidget->setColumnWidth(2,60);
+    ui->travelBookingsTableWidget->setColumnWidth(3,15);
 }
 
 UpAndAway::~UpAndAway()
@@ -44,7 +51,7 @@ void UpAndAway::on_idInputSpinBox_valueChanged(int arg1)
 {
     selectedId = arg1;
     selectedBookingVectorLocation = travelagency.suche(selectedId);
-   for(int i = 0; i < ui->listWidget->count(); i++){
+    for(int i = 0; i < ui->listWidget->count(); i++){
         QRegularExpression sucheErsteZahl("\\d+");
         QStringList textListe = sucheErsteZahl.match(ui->listWidget->item(i)->text()).capturedTexts();
         if(textListe[0].toInt() == arg1){
@@ -324,5 +331,63 @@ void UpAndAway::cleanEverything()
     ui->fromDateEdit->setEnabled(false);
     ui->toDateEdit->setEnabled(false);
     ui->priceSpinBox->setEnabled(false);
+}
+
+
+void UpAndAway::on_spinBox_2_valueChanged(int arg1)
+{
+    //Tabelle löschen
+    ui->travelTableWidget->setRowCount(0);
+    //sachen in die Traveltabelle reinschreiben:
+    if(travelagency.findCustomer(arg1) == nullptr){
+        QMessageBox::warning(this, "Kunde existiert nicht", "Kunde Existiert nicht bitte versuchen sie eine andere ID");
+    }else{
+        for(unsigned int i = 0; i < travelagency.findCustomer(arg1)->getTravelList().size(); i++){
+            ui->travelTableWidget->setRowCount(ui->travelTableWidget->rowCount() + 1);
+            QTableWidgetItem* id = new QTableWidgetItem;
+            QTableWidgetItem* fromDate = new QTableWidgetItem;
+            QTableWidgetItem* toDate = new QTableWidgetItem;
+            id->setData(Qt::EditRole, QString::number(travelagency.findCustomer(arg1)->getTravelList()[i]->getId()));
+            fromDate->setData(Qt::EditRole, travelagency.findCustomer(arg1)->getTravelList()[i]->findEarliestBooking());
+            toDate->setData(Qt::EditRole, travelagency.findCustomer(arg1)->getTravelList()[i]->findLatestBooking());
+            ui->travelTableWidget->setItem(i, 0, id);
+            ui->travelTableWidget->setItem(i, 1, fromDate);
+            ui->travelTableWidget->setItem(i, 2, toDate);
+        }
+    }
+
+}
+
+
+void UpAndAway::on_travelTableWidget_cellDoubleClicked(int row, int column)
+{
+    //Tabelle löschen
+    ui->travelBookingsTableWidget->setRowCount(0);
+    //versuche die Id zu bekommen:
+    QTableWidgetItem* idText = ui->travelTableWidget->item(row, 0);
+    long idNumber = idText->text().toLong();
+    //beschreibe die neue Tabelle:
+    for(unsigned int i = 0; i < travelagency.findTravel(idNumber)->getTravelBookings().size();i++){
+        ui->travelBookingsTableWidget->setRowCount(ui->travelBookingsTableWidget->rowCount() + 1);
+        QTableWidgetItem* id = new QTableWidgetItem;
+        QTableWidgetItem* fromDate = new QTableWidgetItem;
+        QTableWidgetItem* toDate = new QTableWidgetItem;
+        QTableWidgetItem* price = new QTableWidgetItem;
+        id->setData(Qt::EditRole, QString::number(travelagency.findTravel(idNumber)->getTravelBookings()[i]->getId()));
+        fromDate->setData(Qt::EditRole, travelagency.findTravel(idNumber)->getTravelBookings()[i]->getFromQDate());
+        toDate->setData(Qt::EditRole, travelagency.findTravel(idNumber)->getTravelBookings()[i]->getToQdate());
+        price->setData(Qt::EditRole, travelagency.findTravel(idNumber)->getTravelBookings()[i]->getPrice());
+        ui->travelBookingsTableWidget->setItem(i, 0, id);
+        ui->travelBookingsTableWidget->setItem(i, 1, fromDate);
+        ui->travelBookingsTableWidget->setItem(i, 2, toDate);
+        ui->travelBookingsTableWidget->setItem(i, 3, price);
+    }
+}
+
+
+void UpAndAway::on_travelBookingsTableWidget_cellDoubleClicked(int row, int column)
+{
+    QTableWidgetItem* idText = ui->travelBookingsTableWidget->item(row,0);
+    on_idInputSpinBox_valueChanged(idText->text().toInt());
 }
 

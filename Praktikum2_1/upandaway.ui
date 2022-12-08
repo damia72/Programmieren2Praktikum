@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1241</width>
-    <height>462</height>
+    <height>465</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -136,9 +136,9 @@
       <widget class="QLabel" name="label_13">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>30</y>
-         <width>111</width>
+         <x>12</x>
+         <y>31</y>
+         <width>112</width>
          <height>16</height>
         </rect>
        </property>
@@ -149,12 +149,124 @@
       <widget class="QSpinBox" name="spinBox_2">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>50</y>
-         <width>121</width>
+         <x>12</x>
+         <y>53</y>
+         <width>201</width>
          <height>25</height>
         </rect>
        </property>
+      </widget>
+      <widget class="QTableWidget" name="travelTableWidget">
+       <property name="geometry">
+        <rect>
+         <x>12</x>
+         <y>84</y>
+         <width>200</width>
+         <height>141</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>200</width>
+         <height>141</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>200</width>
+         <height>141</height>
+        </size>
+       </property>
+       <property name="editTriggers">
+        <set>QAbstractItemView::NoEditTriggers</set>
+       </property>
+       <property name="selectionMode">
+        <enum>QAbstractItemView::SingleSelection</enum>
+       </property>
+       <property name="selectionBehavior">
+        <enum>QAbstractItemView::SelectRows</enum>
+       </property>
+       <property name="sortingEnabled">
+        <bool>true</bool>
+       </property>
+       <attribute name="verticalHeaderVisible">
+        <bool>false</bool>
+       </attribute>
+       <column>
+        <property name="text">
+         <string>Id</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>fromDate</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>toDate</string>
+        </property>
+       </column>
+      </widget>
+      <widget class="QTableWidget" name="travelBookingsTableWidget">
+       <property name="geometry">
+        <rect>
+         <x>12</x>
+         <y>231</y>
+         <width>200</width>
+         <height>161</height>
+        </rect>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>200</width>
+         <height>161</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>200</width>
+         <height>161</height>
+        </size>
+       </property>
+       <property name="editTriggers">
+        <set>QAbstractItemView::NoEditTriggers</set>
+       </property>
+       <property name="selectionMode">
+        <enum>QAbstractItemView::SingleSelection</enum>
+       </property>
+       <property name="selectionBehavior">
+        <enum>QAbstractItemView::SelectRows</enum>
+       </property>
+       <property name="sortingEnabled">
+        <bool>true</bool>
+       </property>
+       <attribute name="horizontalHeaderVisible">
+        <bool>true</bool>
+       </attribute>
+       <attribute name="verticalHeaderVisible">
+        <bool>false</bool>
+       </attribute>
+       <column>
+        <property name="text">
+         <string>Id</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>fromDate</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>toDate</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>price</string>
+        </property>
+       </column>
       </widget>
      </widget>
     </item>

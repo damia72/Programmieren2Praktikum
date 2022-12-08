@@ -10,9 +10,11 @@ public:
     void addTravel(Travel* travel);
     long getId() const;
     QString showDetails();
+    std::vector<Travel *> getTravelList() const;
 private:
     long id;
     QString name;
+
     std::vector<Travel*> travelList;
 };
 

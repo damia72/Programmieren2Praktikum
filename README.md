@@ -12,15 +12,15 @@
 
 # TODO P3
 
-- [ ] UI Elemente ordentlich Designen
+- [X] UI Elemente ordentlich Designen
 
 - [X] Klassendiagramm nachbauen
 
-- [ ] UI von der Logik trennen
+- [X] UI von der Logik trennen
 
-- [ ] Datei einlesen im neuen format
+- [X] Datei einlesen im neuen format
 
-- [ ] UI an die Daten anpassen
+- [X] UI an die Daten anpassen
 
 - [X] Lösung auf gitlab hochladen
 
@@ -28,4 +28,14 @@
 
 - [X] Alle klassen auf QTKlassen umstellen (bspw String auf Qstring) 
 
-- [ ] Datum von string auf QDate umstellen und nicht mehr mit dem String arbeiten
+- [X] Datum von string auf QDate umstellen und nicht mehr mit dem String arbeiten
+
+# Bugs
+
+- [ ] zu viele Travels
+
+- [ ] oberfläche spinnt rum
+
+- [ ] die neuen Tabellen aktualisieren nicht
+
+- [ ] name fehlt in den daten

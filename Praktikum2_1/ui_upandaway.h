@@ -15,6 +15,7 @@
 #include <QtWidgets/QDoubleSpinBox>
 #include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QListWidget>
@@ -24,6 +25,7 @@
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTableWidget>
 #include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -39,14 +41,19 @@ public:
     QGroupBox *groupBox;
     QVBoxLayout *verticalLayout_4;
     QVBoxLayout *verticalLayout_3;
-    QPushButton *readFileButton;
     QPushButton *JSONErstellenButton;
+    QPushButton *readFileButton;
     QGroupBox *groupBox_2;
     QVBoxLayout *verticalLayout_5;
     QLabel *label;
     QSpinBox *idInputSpinBox;
     QTextBrowser *textBrowser;
     QSpacerItem *verticalSpacer;
+    QGroupBox *groupBox_4;
+    QLabel *label_13;
+    QSpinBox *spinBox_2;
+    QTableWidget *travelTableWidget;
+    QTableWidget *travelBookingsTableWidget;
     QListWidget *listWidget;
     QGroupBox *groupBox_3;
     QWidget *layoutWidget;
@@ -82,7 +89,7 @@ public:
     {
         if (UpAndAway->objectName().isEmpty())
             UpAndAway->setObjectName(QString::fromUtf8("UpAndAway"));
-        UpAndAway->resize(1241, 450);
+        UpAndAway->resize(1241, 465);
         centralwidget = new QWidget(UpAndAway);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         horizontalLayout_2 = new QHBoxLayout(centralwidget);
@@ -95,15 +102,15 @@ public:
         verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
         verticalLayout_3 = new QVBoxLayout();
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
-        readFileButton = new QPushButton(groupBox);
-        readFileButton->setObjectName(QString::fromUtf8("readFileButton"));
-
-        verticalLayout_3->addWidget(readFileButton);
-
         JSONErstellenButton = new QPushButton(groupBox);
         JSONErstellenButton->setObjectName(QString::fromUtf8("JSONErstellenButton"));
 
         verticalLayout_3->addWidget(JSONErstellenButton);
+
+        readFileButton = new QPushButton(groupBox);
+        readFileButton->setObjectName(QString::fromUtf8("readFileButton"));
+
+        verticalLayout_3->addWidget(readFileButton);
 
 
         verticalLayout_4->addLayout(verticalLayout_3);
@@ -155,6 +162,56 @@ public:
 
 
         horizontalLayout_2->addLayout(verticalLayout_6);
+
+        groupBox_4 = new QGroupBox(centralwidget);
+        groupBox_4->setObjectName(QString::fromUtf8("groupBox_4"));
+        label_13 = new QLabel(groupBox_4);
+        label_13->setObjectName(QString::fromUtf8("label_13"));
+        label_13->setGeometry(QRect(12, 31, 112, 16));
+        spinBox_2 = new QSpinBox(groupBox_4);
+        spinBox_2->setObjectName(QString::fromUtf8("spinBox_2"));
+        spinBox_2->setGeometry(QRect(12, 53, 201, 25));
+        travelTableWidget = new QTableWidget(groupBox_4);
+        if (travelTableWidget->columnCount() < 3)
+            travelTableWidget->setColumnCount(3);
+        QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
+        travelTableWidget->setHorizontalHeaderItem(0, __qtablewidgetitem);
+        QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
+        travelTableWidget->setHorizontalHeaderItem(1, __qtablewidgetitem1);
+        QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
+        travelTableWidget->setHorizontalHeaderItem(2, __qtablewidgetitem2);
+        travelTableWidget->setObjectName(QString::fromUtf8("travelTableWidget"));
+        travelTableWidget->setGeometry(QRect(12, 84, 200, 141));
+        travelTableWidget->setMinimumSize(QSize(200, 141));
+        travelTableWidget->setMaximumSize(QSize(200, 141));
+        travelTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        travelTableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
+        travelTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+        travelTableWidget->setSortingEnabled(true);
+        travelTableWidget->verticalHeader()->setVisible(false);
+        travelBookingsTableWidget = new QTableWidget(groupBox_4);
+        if (travelBookingsTableWidget->columnCount() < 4)
+            travelBookingsTableWidget->setColumnCount(4);
+        QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
+        travelBookingsTableWidget->setHorizontalHeaderItem(0, __qtablewidgetitem3);
+        QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
+        travelBookingsTableWidget->setHorizontalHeaderItem(1, __qtablewidgetitem4);
+        QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
+        travelBookingsTableWidget->setHorizontalHeaderItem(2, __qtablewidgetitem5);
+        QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
+        travelBookingsTableWidget->setHorizontalHeaderItem(3, __qtablewidgetitem6);
+        travelBookingsTableWidget->setObjectName(QString::fromUtf8("travelBookingsTableWidget"));
+        travelBookingsTableWidget->setGeometry(QRect(12, 231, 200, 161));
+        travelBookingsTableWidget->setMinimumSize(QSize(200, 161));
+        travelBookingsTableWidget->setMaximumSize(QSize(200, 161));
+        travelBookingsTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        travelBookingsTableWidget->setSelectionMode(QAbstractItemView::SingleSelection);
+        travelBookingsTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+        travelBookingsTableWidget->setSortingEnabled(true);
+        travelBookingsTableWidget->horizontalHeader()->setVisible(true);
+        travelBookingsTableWidget->verticalHeader()->setVisible(false);
+
+        horizontalLayout_2->addWidget(groupBox_4);
 
         listWidget = new QListWidget(centralwidget);
         listWidget->setObjectName(QString::fromUtf8("listWidget"));
@@ -314,10 +371,26 @@ public:
     {
         UpAndAway->setWindowTitle(QCoreApplication::translate("UpAndAway", "UpAndAway", nullptr));
         groupBox->setTitle(QCoreApplication::translate("UpAndAway", "Datei", nullptr));
-        readFileButton->setText(QCoreApplication::translate("UpAndAway", "Datei einlesen", nullptr));
         JSONErstellenButton->setText(QCoreApplication::translate("UpAndAway", "JSON erstellen", nullptr));
-        groupBox_2->setTitle(QCoreApplication::translate("UpAndAway", "Suche \303\274ber ID", nullptr));
-        label->setText(QCoreApplication::translate("UpAndAway", "ID eingeben:", nullptr));
+        readFileButton->setText(QCoreApplication::translate("UpAndAway", "Datei einlesen", nullptr));
+        groupBox_2->setTitle(QCoreApplication::translate("UpAndAway", "Suche \303\274ber Buchungs-ID", nullptr));
+        label->setText(QCoreApplication::translate("UpAndAway", "Buchungs-ID eingeben:", nullptr));
+        groupBox_4->setTitle(QCoreApplication::translate("UpAndAway", "Suche \303\274ber Kunden-ID", nullptr));
+        label_13->setText(QCoreApplication::translate("UpAndAway", "Kunden-ID eingeben:", nullptr));
+        QTableWidgetItem *___qtablewidgetitem = travelTableWidget->horizontalHeaderItem(0);
+        ___qtablewidgetitem->setText(QCoreApplication::translate("UpAndAway", "Id", nullptr));
+        QTableWidgetItem *___qtablewidgetitem1 = travelTableWidget->horizontalHeaderItem(1);
+        ___qtablewidgetitem1->setText(QCoreApplication::translate("UpAndAway", "fromDate", nullptr));
+        QTableWidgetItem *___qtablewidgetitem2 = travelTableWidget->horizontalHeaderItem(2);
+        ___qtablewidgetitem2->setText(QCoreApplication::translate("UpAndAway", "toDate", nullptr));
+        QTableWidgetItem *___qtablewidgetitem3 = travelBookingsTableWidget->horizontalHeaderItem(0);
+        ___qtablewidgetitem3->setText(QCoreApplication::translate("UpAndAway", "Id", nullptr));
+        QTableWidgetItem *___qtablewidgetitem4 = travelBookingsTableWidget->horizontalHeaderItem(1);
+        ___qtablewidgetitem4->setText(QCoreApplication::translate("UpAndAway", "fromDate", nullptr));
+        QTableWidgetItem *___qtablewidgetitem5 = travelBookingsTableWidget->horizontalHeaderItem(2);
+        ___qtablewidgetitem5->setText(QCoreApplication::translate("UpAndAway", "toDate", nullptr));
+        QTableWidgetItem *___qtablewidgetitem6 = travelBookingsTableWidget->horizontalHeaderItem(3);
+        ___qtablewidgetitem6->setText(QCoreApplication::translate("UpAndAway", "price", nullptr));
         groupBox_3->setTitle(QCoreApplication::translate("UpAndAway", "Daten \303\244ndern", nullptr));
         label_2->setText(QCoreApplication::translate("UpAndAway", "Id", nullptr));
         label_3->setText(QCoreApplication::translate("UpAndAway", "Startdatum", nullptr));

@@ -10,6 +10,10 @@ public:
 
     long getId() const;
 
+    std::vector<Booking *> getTravelBookings() const;
+
+    QDate findEarliestBooking();
+    QDate findLatestBooking();
 private:
     long id;
     long customerId;
