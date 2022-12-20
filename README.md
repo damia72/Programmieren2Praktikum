@@ -1,3 +1,9 @@
+### Beispiel
+
+![](Beispielbild.PNG)
+Einfaches Programm zum einlesen von Buchungen, deren Bearbeitung und Speicherung
+
+
 ## TODO
 
 - [X] Json datei erstellen knopf machen und programmieren

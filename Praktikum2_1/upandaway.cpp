@@ -392,3 +392,8 @@ void UpAndAway::on_travelBookingsTableWidget_cellDoubleClicked(int row, int colu
     on_idInputSpinBox_valueChanged(idText->text().toInt());
 }
 
+
+void UpAndAway::on_FlughafencodesEinlesenPushButton_clicked()
+{
+    //travelagency.airport.readIataCodes();
+}

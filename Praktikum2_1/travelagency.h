@@ -4,6 +4,7 @@
 #include "booking.h"
 #include <QWidget>
 #include "customer.h"
+#include "airport.h"
 class TravelAgency
 {
 public:
@@ -20,6 +21,7 @@ public:
     int suche(int zuSuchendeId);    
     void cleanEverything();
     QStringList bookingAusfuellen(std::stringstream &textStream);
+    Airport airport;
 private:
     void cleanBookings();
     void cleanTravels();

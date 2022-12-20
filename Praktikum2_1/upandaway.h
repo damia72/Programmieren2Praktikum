@@ -54,6 +54,8 @@ private slots:
 
     void on_travelBookingsTableWidget_cellDoubleClicked(int row, int column);
 
+    void on_FlughafencodesEinlesenPushButton_clicked();
+
 private:
     Ui::UpAndAway *ui;
     void cleanEverything();
